@@ -1,0 +1,123 @@
+/* index.css STROOP */
+
+.section {
+  /* visibility: hidden; */
+  display: none;
+  height: 100%;
+}
+
+.center {
+  padding: auto;
+  text-align: center;
+  margin: auto;
+  width: 50%;
+}
+
+.login {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  max-width: 250px;
+}
+
+.consigne {
+  width: 100%;
+  max-width: 800px;
+  padding: 15px;
+  margin: auto;
+}
+
+.consigne-texte {
+  text-align: left;
+}
+
+.blue-text {
+  color: #007bff;
+  text-align: center;
+}
+
+.phase {
+  width: 100%;
+  /*max-width: 1500px;*/
+  min-width: 1200px;
+  padding: 15px;
+  margin: auto;
+  font-family: "Courier New", Courier;
+}
+
+.fiveWords {
+  display: inline-block;
+  position: relative;
+  background-color: white;
+  color: black;
+  font-size: 135%;
+  font-weight: bold;
+  padding: 10px;
+  margin: 4px;
+  width: 150px;
+}
+
+.fiveBoxes {
+  display: inline-block;
+  position: relative;
+  background-color: white;
+  color: black;
+  font-size: 135%;
+  font-weight: bold;
+  padding: 8px;
+  margin: 4px;
+  border: 2px solid white;
+}
+
+#boxpad,
+#wordpad {
+  display: inline-block;
+  position: relative;
+  top: 10px;
+}
+
+.num,
+.num2 {
+  display: inline-block;
+  position: relative;
+  top: -30px;
+  /* background-color: #666; */
+  color: black;
+  font-size: 135%;
+  font-weight: bold;
+}
+
+.num {
+  margin-left: 60px;
+  margin-right: 60px;
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+.num2 {
+  margin: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#wordpad-nums {
+  display: block;
+  position: relative;
+}
+
+#boxpad-nums {
+  display: block;
+  position: relative;
+  left: 29px;
+}
+
+#boxes,
+#words {
+  display: block;
+  position: relative;
+  top: -30px;
+}
+
+#boxes {
+  margin-left: 60px;
+}
