@@ -81,7 +81,6 @@
   display: inline-block;
   position: relative;
   top: -30px;
-  /* background-color: #666; */
   color: black;
   font-size: 135%;
   font-weight: bold;
@@ -109,6 +108,7 @@
   display: block;
   position: relative;
   left: 29px;
+  top: 4px;
 }
 
 #boxes,

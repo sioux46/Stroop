@@ -6,7 +6,8 @@ $version = "0.01";
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html charset=utf-8" />
-	<meta name="viewport" content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0">
+	<meta name="viewport" content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, maximum-scale=0.5, user-scalable=yes"> <!--  -->
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Stroop Lutin</title>
 
 	<!-- ====== Bootstrap ====== -->
@@ -32,11 +33,13 @@ $version = "0.01";
 	<div id="stroop" class="text-center">
 <!-- ************************************* -->
 		<div id="accueil" class="section form-signin">
-		  <h1 class="h3 mb-3 font-weight-normal">Bienvenue dans STROOP!</h1>
+		  <div class="h3 mb-3 font-weight-large">Bienvenue dans STROOP!</div>
 			<br>
 			<br>
 		  <label for="participant" class="sr-only">Participant</label>
-		  <input type="text" id="participant" class="form-control" placeholder="Nom du participant" required="" autofocus="">
+		  <input id="participant" type="text" id="participant" class="form-control" placeholder="Nom du participant" required="" autofocus="">
+			<label for="lieu" class="sr-only">lieu</label>
+		  <input id="participant" type="text" id="participant" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
 			<br>
@@ -65,8 +68,8 @@ $version = "0.01";
 			<br/>
 			<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
 		</div> <!-- fin pretest1 -->
-<!-- ************************************* doPretest1 -->
-		<div id="doPretest1" class="section phase">
+<!-- ************************************* doPhase -->
+		<div id="doPhase" class="section phase">
 			<br/><br/><br/><br/>
 			<div id="wordpad">
 				<div id="wordpad-nums">
@@ -77,11 +80,11 @@ $version = "0.01";
 					<div class="num">5</div>
 				</div>
 				<div id="words">
-					<div id="word1" class="elem-slot fiveWords">DESIR</div>
-					<div id="word2" class="elem-slot fiveWords">DIGESTIF</div>
-					<div id="word3" class="elem-slot fiveWords">CAFE</div>
-					<div id="word4" class="elem-slot fiveWords">NOURRITURE</div>
-					<div id="word5" class="elem-slot fiveWords">ABSENT</div>
+					<div id="word0" class="fiveWords"></div>
+					<div id="word1" class="fiveWords"></div>
+					<div id="word2" class="fiveWords"></div>
+					<div id="word3" class="fiveWords"></div>
+					<div id="word4" class="fiveWords"></div>
 				</div>
 			</div>
 
@@ -94,12 +97,16 @@ $version = "0.01";
 					<div class="num2">5</div>
 				</div>
 				<div id="boxes">
-					<div id="box1" class="elem-slot fiveBoxes">D</div>
-					<div id="box2" class="elem-slot fiveBoxes">R</div>
-					<div id="box3" class="elem-slot fiveBoxes">&nbsp;</div>
-					<div id="box4" class="elem-slot fiveBoxes">&nbsp;</div>
-					<div id="box5" class="elem-slot fiveBoxes">&nbsp;</div>
+					<div id="box0" class="fiveBoxes"></div>
+					<div id="box1" class="fiveBoxes"></div>
+					<div id="box2" class="fiveBoxes"></div>
+					<div id="box3" class="fiveBoxes"></div>
+					<div id="box4" class="fiveBoxes"></div>
 				</div>
+			</div>
+			<br/>
+			<div class="form-signin">
+				<button id="boutSuite" class="btn btn-lg btn-primary btn-block">Suite</button>
 			</div>
 		</div> <!-- fin doPretest1 -->
 <!-- ************************************* -->
