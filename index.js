@@ -72,13 +72,26 @@ function goodColorAnswers(line) {
 }
 
 //
-function dispayTrial() {
+function displayTrial() {
   for ( let i = 0; i < 5; i++ ) {
     $(`#box${i}`).html("&nbsp;");
     $(`#word${i}`).text(itemTab[line][i].mot);
     let c = itemTab[line][i].couleur;
     $(`#word${i}`).css("color", couleurs[c]);
   }
+}
+
+//
+function initPhase() {
+  var phase = phaseNames[phaseNum];
+  line = 0;
+  col = 0;
+  $(`#box${col}`).css("border","2px solid black");
+  displayTrial();
+  $("#boutTrial").css({"display":"none"});
+  $("#boutPhase").css({"display":"none"});
+  $("#doPhase").css({"display":"block"});
+  waitForKey = true;
 }
 
 // ev.keyCode === 13
@@ -92,36 +105,39 @@ $(document).ready(function () {
 ///////////////////////////////////////////////////////////////////////
   // saisie clavier
   $(document).on("keypress", function(ev) {
-    if ( !waitForKey || echo ) {
-      echo = false;
-      return;
-    }
+    if ( !waitForKey ) return;
 
     waitForKey = false;
     $(`#box${col}`).text((ev.originalEvent.key).toUpperCase());
     $(`#box${col}`).css("border","2px solid white");
     if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
     if ( col == 4 ) {
-      $("#boutSuite").css({"display":"block"});
+      if ( line < itemTab.length - 1 ) $("#boutTrial").css({"display":"block"});
+      else $("#boutPhase").css({"display":"block"});
       return;
     }
     col++;
     echo = true;
     waitForKey = true;
   });
+
+///////////////////////////////////////////////////////////////////////
+  // phase suivante
+  $("#boutPhase").on("click", function (ev) {
+    $("#doPhase").css({"display":"none"});
+    phaseNum++;
+    $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
+  });
 ///////////////////////////////////////////////////////////////////////
   // essai suivant
-  $("#boutSuite").on("click", function (ev) {
-    if ( line < maxLines ) {
-      line++;
-      col = 0;
-      $(`#box${col}`).css("border","2px solid black");
-      dispayTrial();
-      $("#boutSuite").css({"display":"none"});
-      $("#doPhase").css({"display":"block"});
-      waitForKey = true;
-    }
-    // phase suivante
+  $("#boutTrial").on("click", function (ev) {
+    line++;
+    col = 0;
+    $(`#box${col}`).css("border","2px solid black");
+    displayTrial();
+    $("#boutTrial").css({"display":"none"});
+    $("#doPhase").css({"display":"block"});
+    waitForKey = true;
   });
 ///////////////////////////////////////////////////////////////////////
   // accueil
@@ -129,30 +145,51 @@ $(document).ready(function () {
     $("#accueil").css({"display":"none"});
     $("#pretest1").css({"display":"block"});
   });
+
   // doPretest1
   $("#boutDoPretest1").on("click", function (ev) {
     $("#pretest1").css({"display":"none"});
-    //initPhase("pretest1");
-    line = 0;
-    col = 0;
+    itemTab = objPretest1;
+    initPhase();
+  });
 
-    //phase = "pretest2";
-    itemTab = objPhase2;
-    maxLines = 10;
+  // doTest1
+  $("#boutDoTest1").on("click", function (ev) {
+    $("#test1").css({"display":"none"});
+    itemTab = objTest1;
+    initPhase();
+  });
 
-    $(`#box${col}`).css("border","2px solid black");
-    dispayTrial();
-    $("#boutSuite").css({"display":"none"});
-    $("#doPhase").css({"display":"block"});
-    waitForKey = true;
+  // doPretest2
+  $("#boutDoPretest2").on("click", function (ev) {
+    $("#pretest2").css({"display":"none"});
+    itemTab = objPretest2;
+    initPhase();
   });
 
 
 /////////////////////////////////////////
+  objPretest1 = buildObjTab(strPre1);
+  objPretest2 = buildObjTab(strPre2);
+  objTest1 = buildObjTab(strPhase1);
+  objTest2 = buildObjTab(strPhase2);
+  objTest3 = buildObjTab(strPhase3);
+
   $("#accueil").css({"display":"block"});
 
 }); // ******************************************************  F I N   R E A D Y
 //  ****************************************************************************
+
+var phaseNames = ["pretest1", "test1", "pretest2", "test2", "test3"];
+
+var waitForKey = false;
+var phaseNum;
+var itemTab;
+var line;
+var col;
+var phaseNum = 0;
+
+var proto = [];
 
 
 var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIRE"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
@@ -170,18 +207,8 @@ var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE
 var strPre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
 var strPre2 = [["COKTAIL-ROUGE","APERITIF-BLEU","RIRE-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
 
-var objPretest1 = buildObjTab(strPre1);
-var objPretest2 = buildObjTab(strPre2);
-var objPhase1 = buildObjTab(strPhase1);
-var objPhase2 = buildObjTab(strPhase2);
-var objPhase3 = buildObjTab(strPhase3);
-
-var waitForKey = false;
-var phase;
-var itemTab;
-var line;
-var col;
-var maxLines;
-var echo = false;
-
-var proto = [];
+var objPretest1;
+var objPretest2;
+var objTest1;
+var objTest2;
+var objTest3;

@@ -25,7 +25,6 @@ $version = "0.01";
 	<!-- STROOP -->
 	<link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="helpIndex.css">
-	<script src="index.js"></script>
 </head>
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -37,9 +36,9 @@ $version = "0.01";
 			<br>
 			<br>
 		  <label for="participant" class="sr-only">Participant</label>
-		  <input id="participant" type="text" id="participant" class="form-control" placeholder="Nom du participant" required="" autofocus="">
+		  <input id="participant" type="text" class="form-control" placeholder="Nom du participant" required="" autofocus="">
 			<label for="lieu" class="sr-only">lieu</label>
-		  <input id="participant" type="text" id="participant" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
+		  <input id="lieu" type="text" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
 			<br>
@@ -58,16 +57,57 @@ $version = "0.01";
 					MERCI D'AVOIR DONNE VOTRE ACCORD POUR REALISER CET EXERCICE.
 				</h5>
 				<br/>
+				<h5>
 				Cinq mots vont s'afficher.
 				<br/>
 				Pour chacun des mots, tapez la première lettre du mot dans la case correspondante à droite des mots.
 				<br/>
 				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
+			</h5>
 				<br/>
 			</div>
-			<br/>
-			<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+			<div class="form-signin">
+				<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+			</div>
 		</div> <!-- fin pretest1 -->
+		<!-- ************************************* test1 -->
+				<div id="test1" class="section consigne">
+					<div class="consigne-texte">
+						<br/><br/><br/>
+						<h5>Très bien!</h5>
+						<br/>
+						<h5>
+						Maintenant nous allons refaire la même chose 10 fois,
+						<br/>
+						 mais il faut taper la premiere lettre de chaque mot le plus vite possible.
+					</h5>
+						<br/>
+					</div>
+					<br/>
+					<div class="form-signin">
+						<button id="boutDoTest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+					</div>
+				</div> <!-- fin test1 -->
+		<!-- ************************************* pretest2 -->
+				<div id="pretest2" class="section consigne">
+					<div class="consigne-texte">
+						<br/><br/><br/>
+						<h5 class="blue-text">
+							MERCI D'AVOIR DONNE VOTRE ACCORD POUR REALISER CET EXERCICE.
+						</h5>
+						<br/>
+						Cinq mots vont s'afficher.
+						<br/>
+						Pour chacun des mots, tapez la première lettre du mot dans la case correspondante à droite des mots.
+						<br/>
+						Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
+						<br/>
+					</div>
+					<br/>
+					<div class="form-signin">
+						<button id="boutDoPretest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+					</div>
+				</div> <!-- fin pretest2 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
 			<br/><br/><br/><br/>
@@ -106,9 +146,10 @@ $version = "0.01";
 			</div>
 			<br/>
 			<div class="form-signin">
-				<button id="boutSuite" class="btn btn-lg btn-primary btn-block">Suite</button>
+				<button id="boutTrial" class="btn btn-lg btn-primary btn-block">Suite</button>
+				<button id="boutPhase" class="btn btn-lg btn-primary btn-block">Suite</button>
 			</div>
-		</div> <!-- fin doPretest1 -->
+		</div> <!-- fin doPhase -->
 <!-- ************************************* -->
 <div id="phase1" class="section">
 			phase1
@@ -126,9 +167,7 @@ $version = "0.01";
 			phase3
 		</div> <!-- fin phase3 -->
 	</div> <!-- fin stroop -->
+	<script src="index.js"></script>
 
-
-  <!-- jQuery ready -->
-  <script src="index.js"></script>
 </body>
 </html>
