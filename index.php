@@ -61,6 +61,8 @@ $version = "0.01";
 				Cinq mots vont s'afficher.
 				<br/>
 				Pour chacun des mots, tapez la première lettre du mot dans la case correspondante à droite des mots.
+				<br/><br/>
+				Exemple:
 				<br/>
 				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
 			</h5>
@@ -70,44 +72,83 @@ $version = "0.01";
 				<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
 			</div>
 		</div> <!-- fin pretest1 -->
-		<!-- ************************************* test1 -->
-				<div id="test1" class="section consigne">
+<!-- ************************************* test1 -->
+		<div id="test1" class="section consigne">
+			<div class="consigne-texte">
+				<br/><br/><br/>
+				<h5>Très bien!</h5>
+				<br/>
+				<h5>
+				Maintenant nous allons refaire la même chose 10 fois,
+				<br/>
+				 mais il faut taper la premiere lettre de chaque mot le plus vite possible.
+			</h5>
+				<br/>
+			</div>
+			<br/>
+			<div class="form-signin">
+				<button id="boutDoTest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+			</div>
+		</div> <!-- fin test1 -->
+<!-- ************************************* pretest2 -->
+		<div id="pretest2" class="section consigne">
+			<div class="consigne-texte">
+				<br/><br/><br/>
+				<br/><h5>
+				Cinq mots vont s'afficher.<br/>
+				Pour chacun des mots, tapez la première lettre de <b>la couleur de l'encre </b>dans laquelle le mot est écrit,
+				<br/>
+				dans la case correspondante à droite des mots.<br/>
+				Exemple:
+				<br/>
+				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b> écrit en <b>ROUGE, VERT, JAUNE, ROUGE, ROUGE,</b><br/>
+				 il faut tapez <b>R, V, J, R, R.</b>
+				<br/>
+				</h5>
+				<br/>
+			</div>
+			<br/>
+			<div class="form-signin">
+				<button id="boutDoPretest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+			</div>
+		</div> <!-- fin pretest2 -->
+<!-- ************************************* test2 -->
+		<div id="test2" class="section consigne">
+			<div class="consigne-texte">
+				<br/><br/><br/>
+				<h5>Très bien!</h5>
+				<br/>
+				<h5>
+				Maintenant nous allons refaire la même chose 10 fois,
+				<br/>
+				 mais il faut taper la premiere lettre de la couleur de chaque mot le plus vite possible.
+			</h5>
+				<br/>
+			</div>
+			<br/>
+			<div class="form-signin">
+				<button id="boutDoTest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+			</div>
+		</div> <!-- fin test2 -->
+		<!-- ************************************* test3 -->
+				<div id="test3" class="section consigne">
 					<div class="consigne-texte">
 						<br/><br/><br/>
-						<h5>Très bien!</h5>
+						<h5>Très bien!
 						<br/>
 						<h5>
-						Maintenant nous allons refaire la même chose 10 fois,
+						nous allons refaire la même chose encore 10 fois, <br/>
+						mais avec une autre liste de mots.
 						<br/>
-						 mais il faut taper la premiere lettre de chaque mot le plus vite possible.
+						 Il faut ici encore taper la premiere lettre de la couleur de chaque mot le plus vite possible.
 					</h5>
 						<br/>
 					</div>
 					<br/>
 					<div class="form-signin">
-						<button id="boutDoTest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+						<button id="boutDoTest3" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
 					</div>
-				</div> <!-- fin test1 -->
-		<!-- ************************************* pretest2 -->
-				<div id="pretest2" class="section consigne">
-					<div class="consigne-texte">
-						<br/><br/><br/>
-						<h5 class="blue-text">
-							MERCI D'AVOIR DONNE VOTRE ACCORD POUR REALISER CET EXERCICE.
-						</h5>
-						<br/>
-						Cinq mots vont s'afficher.
-						<br/>
-						Pour chacun des mots, tapez la première lettre du mot dans la case correspondante à droite des mots.
-						<br/>
-						Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
-						<br/>
-					</div>
-					<br/>
-					<div class="form-signin">
-						<button id="boutDoPretest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
-					</div>
-				</div> <!-- fin pretest2 -->
+				</div> <!-- fin test3 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
 			<br/><br/><br/><br/>

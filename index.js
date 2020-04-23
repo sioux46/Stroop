@@ -55,6 +55,82 @@ function buildObjTab(table) {
   return objTab;
 }
 
+/* sauve proto sur bd
+function MODEL_AJAX(data, url) {
+$.ajax({
+  'url': url,
+  'data': { 'data':theData },
+  'complete': function(xhr, result) {
+    //
+    if (result != 'success') {
+      //
+    }
+    else {
+      var reponse = xhr.responseText;
+      if (reponse != 'OK') {
+        //
+      }
+      else {
+        //
+      }
+    }
+  }
+});
+}*/
+
+//
+function dateTime() {
+	var dt = new Date();
+	var date = dt.getDate().toString();
+	if (date.length == 1) date = '0' + date;
+	var month = (dt.getMonth() + 1).toString();
+	if (month.length == 1) month = '0' + month;
+	var year = dt.getYear() + 1900;
+
+	date = year + '-' + month + '-' + date;
+	var time = dt.toTimeString().match(/^(.{8})/)[1];
+	return {date:date, time:time};
+}
+
+// sauve proto sur bd
+function saveProtToBase() {
+$.ajax({
+  'url': 'ajaxSave.php',
+  'type': 'post',
+  'data': { data: JSON.stringify(proto) },
+  'complete': function(xhr, result) {
+    if (result != 'success') {
+      modalAlert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
+    }
+    else {
+      var reponse = xhr.responseText;
+      sessionStorage.waitingCycles = JSON.stringify(waitingCycles);
+    }
+  }
+}); // fin ajax 2
+}
+
+//
+function writeTrialToProto() {
+  // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
+  var trial = {};
+
+  trial.observateur = "";
+  trial.participant = participant;
+  trial.lieu = lieu;
+  let datetime = dateTime();
+  trial.date = datetime.date;
+  trial.time = datetime.time;
+  trial.phase = phaseNames[phaseNum];
+  trial.ligne = line;
+  trial.col = col;
+  trial.mot = $(`#word${col}`).text();
+  trial.couleur = itemTab[line][col].couleur;
+  trial.rep = $(`#box${col}`).text();
+
+  proto.push(trial);
+}
+
 //
 function goodCharAnswers() {
   for ( let i = 0; i < 5; i++ ) {
@@ -64,9 +140,9 @@ function goodCharAnswers() {
 }
 
 //
-function goodColorAnswers(line) {
+function goodColorAnswers() {
   for ( let i = 0; i < 5; i++ ) {
-    if ( $(`#box${i}`).text() != itemTab[line][i].couleur[0] ) return false;
+    if ( $(`#box${i}`).text() != itemTab[0][i].couleur[0] ) return false;
   }
   return true;
 }
@@ -108,10 +184,26 @@ $(document).ready(function () {
     if ( !waitForKey ) return;
 
     waitForKey = false;
+    writeTrialToProto();
+
     $(`#box${col}`).text((ev.originalEvent.key).toUpperCase());
     $(`#box${col}`).css("border","2px solid white");
     if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
     if ( col == 4 ) {
+      /*                                        À REMETTRE ÀPRES DEBBUG
+      if ( phaseNames[phaseNum] == "pretest1" &&
+              !goodCharAnswers() ) {  // erreur pretest1
+        alert("Vous avez fait une erreur. On recommence.");
+        initPhase();
+        return;
+      }
+      if ( phaseNames[phaseNum] == "pretest2" &&
+              !goodColorAnswers() ) {  // erreur pretest2
+        alert("Vous avez fait une erreur. On recommence.");
+        initPhase();
+        return;
+      }
+      */
       if ( line < itemTab.length - 1 ) $("#boutTrial").css({"display":"block"});
       else $("#boutPhase").css({"display":"block"});
       return;
@@ -138,6 +230,8 @@ $(document).ready(function () {
     $("#boutTrial").css({"display":"none"});
     $("#doPhase").css({"display":"block"});
     waitForKey = true;
+    console.log(`ligne: ${line}`);
+    console.log(line);
   });
 ///////////////////////////////////////////////////////////////////////
   // accueil
@@ -167,6 +261,20 @@ $(document).ready(function () {
     initPhase();
   });
 
+  // doTest2
+  $("#boutDoTest2").on("click", function (ev) {
+    $("#test2").css({"display":"none"});
+    itemTab = objTest2;
+    initPhase();
+  });
+
+  // doTest3
+  $("#boutDoTest3").on("click", function (ev) {
+    $("#test3").css({"display":"none"});
+    itemTab = objTest3;
+    initPhase();
+  });
+
 
 /////////////////////////////////////////
   objPretest1 = buildObjTab(strPre1);
@@ -190,19 +298,27 @@ var col;
 var phaseNum = 0;
 
 var proto = [];
+var participant;
+var lieu;
 
 
-var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIRE"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
-
+var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"]];
+/*
+,["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIRE"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
+*/
 var couleurs = {};
 couleurs.BLEU = "blue";
 couleurs.VERT = "green";
 couleurs.JAUNE = "#BABA00";
 couleurs.ROUGE = "red";
 
-var strPhase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"],["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
+var strPhase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"]];
+/*
+,["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];*/
 
-var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"],["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];
+var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"]];
+/*
+,["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];*/
 
 var strPre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
 var strPre2 = [["COKTAIL-ROUGE","APERITIF-BLEU","RIRE-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
