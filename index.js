@@ -94,20 +94,35 @@ function dateTime() {
 
 // sauve proto sur bd
 function saveProtToBase() {
-$.ajax({
-  'url': 'ajaxSave.php',
-  'type': 'post',
-  'data': { data: JSON.stringify(proto) },
-  'complete': function(xhr, result) {
-    if (result != 'success') {
-      modalAlert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
-    }
-    else {
-      var reponse = xhr.responseText;
-      sessionStorage.waitingCycles = JSON.stringify(waitingCycles);
-    }
+  var waitingCycles = proto;
+  if ( waitingCycles.length ) {
+    $.ajax({
+      'url': 'connectMySQL.php',
+      'type': 'post',
+      'complete': function(xhr, result) {
+        if (result != 'success') {
+        //  modalAlert ( 'Network failure. Waiting cycle not saved.', 'Drumy error!');
+        }
+        else {
+          var reponse = xhr.responseText;
+
+          $.ajax({
+            'url': 'ajaxSave.php',
+            'type': 'post',
+            'data': { data: JSON.stringify(waitingCycles.shift()) },
+            'complete': function(xhr, result) {
+              if (result != 'success') {
+                modalAlert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
+              }
+              else {
+                var reponse = xhr.responseText;
+              }
+            }
+          }); // fin ajax 2
+        }
+      }
+    });// fin ajax 1
   }
-}); // fin ajax 2
 }
 
 //
@@ -115,7 +130,7 @@ function writeTrialToProto() {
   // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
   var trial = {};
 
-  trial.observateur = "";
+  trial.observateur = observateur;
   trial.participant = participant;
   trial.lieu = lieu;
   let datetime = dateTime();
@@ -127,6 +142,7 @@ function writeTrialToProto() {
   trial.mot = $(`#word${col}`).text();
   trial.couleur = itemTab[line][col].couleur;
   trial.rep = $(`#box${col}`).text();
+  trial.timeRep = 0;
 
   proto.push(trial);
 }
@@ -298,8 +314,9 @@ var col;
 var phaseNum = 0;
 
 var proto = [];
-var participant;
-var lieu;
+var participant = "";
+var lieu = "";
+var observateur = "";
 
 
 var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"]];

@@ -35,6 +35,8 @@ for ( $i = 0; $i < count($rawdata); $i++ ) {
 
   $query = $query . ", `rep` = '" . $rawdata[$i]['rep'] . "'";
 
+  $query = $query . ", `timeRep` = '" . $rawdata[$i]['timeRep'] . "'";
+
 
   $result = $base->query($query);
 
@@ -46,6 +48,6 @@ for ( $i = 0; $i < count($rawdata); $i++ ) {
     exit(1);
   }
 }
-echo 'rep: ' . $reponse . ' query: ' . $query . ' IIIII ';
+echo 'count: ' . count($rawdata). ' rep: ' . $reponse . ' query: ' . $query;
 $base->commit(); // fin section critique
 ?>
