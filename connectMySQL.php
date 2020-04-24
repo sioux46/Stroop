@@ -4,7 +4,7 @@ function connect()
 	define("MYHOST","localhost");
 	define("MYUSER","sioux");
 	define("MYPASS","sioux");
-	define("MYBASE","stoop");
+	define("MYBASE","stroop");
 
 	$idcomW = new mysqli(MYHOST,MYUSER,MYPASS,MYBASE);
 	if (!$idcomW)

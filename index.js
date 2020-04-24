@@ -93,39 +93,31 @@ function dateTime() {
 }
 
 // sauve proto sur bd
-function saveProtToBase() {
-  var waitingCycles = proto;
-  if ( waitingCycles.length ) {
-    $.ajax({
-      'url': 'connectMySQL.php',
-      'type': 'post',
-      'complete': function(xhr, result) {
-        if (result != 'success') {
-        //  modalAlert ( 'Network failure. Waiting cycle not saved.', 'Drumy error!');
-        }
-        else {
-          var reponse = xhr.responseText;
-
-          $.ajax({
-            'url': 'ajaxSave.php',
-            'type': 'post',
-            'data': { data: JSON.stringify(waitingCycles.shift()) },
-            'complete': function(xhr, result) {
-              if (result != 'success') {
-                modalAlert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
-              }
-              else {
-                var reponse = xhr.responseText;
-              }
-            }
-          }); // fin ajax 2
-        }
+function saveProtoToBase () {
+  $.ajax({
+    'url': 'ajaxSave.php',
+    'type': 'post',
+    'data': { data: JSON.stringify(proto) },
+    'complete': function(xhr, result) {
+      if (result != 'success') {
+        alert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
       }
-    });// fin ajax 1
-  }
+      else {
+        var reponse = xhr.responseText;
+      }
+    }
+  });
 }
 
 //
+
+/*
+function saveProtoToBase () {
+  for ( let i = 0; i < proto.length; i++ ) {
+    saveProtoToBase1line( JSON.stringify(proto[i]) );
+  }
+}*/
+
 function writeTrialToProto() {
   // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
   var trial = {};

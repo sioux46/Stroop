@@ -1,7 +1,7 @@
 <?php
 // ajaxSave.php
 session_start();
-require_once("connectMySql.php");
+require_once("connectMySQL.php");
 $base=connect();
 //
 header("content-type:text/plain; charset=utf-8");
@@ -35,7 +35,7 @@ for ( $i = 0; $i < count($rawdata); $i++ ) {
 
   $query = $query . ", `rep` = '" . $rawdata[$i]['rep'] . "'";
 
-  $query = $query . ", `timeRep` = '" . $rawdata[$i]['timeRep'] . "'";
+  $query = $query . ", `timeRep` = '" . $rawdata[$i]['timeRep'] . "';";
 
 
   $result = $base->query($query);
@@ -47,7 +47,10 @@ for ( $i = 0; $i < count($rawdata); $i++ ) {
     echo 'rep: ' . $reponse . ' query: ' . $query . ' IIIII ';
     exit(1);
   }
+  echo ' query: ' . $query;
+  echo '
+  ';
 }
-echo 'count: ' . count($rawdata). ' rep: ' . $reponse . ' query: ' . $query;
+//echo 'count: ' . count($rawdata). ' rep: ' . $reponse . ' query: ' . $query;
 $base->commit(); // fin section critique
 ?>
