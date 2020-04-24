@@ -191,22 +191,19 @@ $version = "0.01";
 				<button id="boutPhase" class="btn btn-lg btn-primary btn-block">Suite</button>
 			</div>
 		</div> <!-- fin doPhase -->
+		<!-- ************************************* test3 -->
+				<div id="endStroop" class="section consigne">
+					<div class="consigne-texte">
+						<br/><br/><br/>
+						<h5>Très bien!<br/>
+						<br/>
+						Merci beaucoup.
+						</h5>
+						<br/>
+					</div>
+					<br/>
+				</div> <!-- fin test3 -->
 <!-- ************************************* -->
-<div id="phase1" class="section">
-			phase1
-		</div> <!-- fin phase1 -->
-<!-- ************************************* -->
-		<div id="pretest23" class="section">
-			pretest23
-		</div> <!-- fin phase1 -->
-<!-- ************************************* -->
-		<div id="phase2" class="section">
-			phase2
-		</div> <!-- fin phase2 -->
-<!-- ************************************* -->
-		<div id="phase3" class="section">
-			phase3
-		</div> <!-- fin phase3 -->
 	</div> <!-- fin stroop -->
 	<script src="index.js"></script>
 

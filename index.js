@@ -110,13 +110,9 @@ function saveProtoToBase () {
 }
 
 //
-
-/*
-function saveProtoToBase () {
-  for ( let i = 0; i < proto.length; i++ ) {
-    saveProtoToBase1line( JSON.stringify(proto[i]) );
-  }
-}*/
+function now () {
+  return new Date().getTime();
+}
 
 function writeTrialToProto() {
   // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
@@ -130,11 +126,11 @@ function writeTrialToProto() {
   trial.time = datetime.time;
   trial.phase = phaseNames[phaseNum];
   trial.ligne = line;
-  trial.col = col;
+  trial.col = col + 1;
   trial.mot = $(`#word${col}`).text();
   trial.couleur = itemTab[line][col].couleur;
   trial.rep = $(`#box${col}`).text();
-  trial.timeRep = 0;
+  trial.timeRep = now() - trialTime;
 
   proto.push(trial);
 }
@@ -163,6 +159,7 @@ function displayTrial() {
     let c = itemTab[line][i].couleur;
     $(`#word${i}`).css("color", couleurs[c]);
   }
+  trialTime = now();
 }
 
 //
@@ -192,9 +189,11 @@ $(document).ready(function () {
     if ( !waitForKey ) return;
 
     waitForKey = false;
-    writeTrialToProto();
 
     $(`#box${col}`).text((ev.originalEvent.key).toUpperCase());
+    writeTrialToProto();
+    trialTime = now();
+
     $(`#box${col}`).css("border","2px solid white");
     if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
     if ( col == 4 ) {
@@ -226,7 +225,11 @@ $(document).ready(function () {
   $("#boutPhase").on("click", function (ev) {
     $("#doPhase").css({"display":"none"});
     phaseNum++;
-    $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
+    if ( phaseNum < 4 ) $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
+    else {
+      saveProtoToBase();
+      $("#endStroop").css({"display":"block"});
+    }
   });
 ///////////////////////////////////////////////////////////////////////
   // essai suivant
@@ -242,6 +245,14 @@ $(document).ready(function () {
     console.log(line);
   });
 ///////////////////////////////////////////////////////////////////////
+  $("#participant").on("change", function (ev) {
+    participant = $("#participant").val();
+  });
+
+  $("#lieu").on("change", function (ev) {
+    lieu = $("#lieu").val();
+  });
+
   // accueil
   $("#boutPretest1").on("click", function (ev) {
     $("#accueil").css({"display":"none"});
@@ -292,6 +303,8 @@ $(document).ready(function () {
   objTest3 = buildObjTab(strPhase3);
 
   $("#accueil").css({"display":"block"});
+  $("#participant").val("");
+  $("#lieu").val("");
 
 }); // ******************************************************  F I N   R E A D Y
 //  ****************************************************************************
@@ -304,6 +317,8 @@ var itemTab;
 var line;
 var col;
 var phaseNum = 0;
+
+var trialTime;
 
 var proto = [];
 var participant = "";
