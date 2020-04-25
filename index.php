@@ -35,9 +35,11 @@ $version = "0.01";
 		  <div class="h3 mb-3 font-weight-large">Bienvenue dans STROOP!</div>
 			<br>
 			<br>
+			<label for="observateur" class="sr-only">Observateur</label>
+		  <input id="observateur" type="text" class="form-control" placeholder="Nom de l'observateur" required="" autofocus="">
 		  <label for="participant" class="sr-only">Participant</label>
-		  <input id="participant" type="text" class="form-control" placeholder="Nom du participant" required="" autofocus="">
-			<label for="lieu" class="sr-only">lieu</label>
+		  <input id="participant" type="number" step="1" min="1"  class="form-control" placeholder="Numéro du participant" required="" autofocus="">
+			<label for="lieu" class="sr-only">Lieu</label>
 		  <input id="lieu" type="text" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
@@ -47,25 +49,29 @@ $version = "0.01";
 		      <input type="checkbox" value="remember-me"> Remember me
 		    </label>
 		  </div>-->
-		  <button id="boutPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+		  <button id="boutPretest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
+			<br><br><br><br><br>
+			<h6 style="color:#bbb">Sébastien Poitrenaud pour LutinUserlab v0.02</h6>
 		</div> <!-- fin accueil -->
 <!-- ************************************* pretest1 -->
 		<div id="pretest1" class="section consigne">
 			<div class="consigne-texte">
 				<br/><br/><br/>
-				<h5 class="blue-text">
-					MERCI D'AVOIR DONNE VOTRE ACCORD POUR REALISER CET EXERCICE.
-				</h5>
-				<br/>
 				<h5>
-				Cinq mots vont s'afficher.
-				<br/>
-				Pour chacun des mots, tapez la première lettre du mot dans la case correspondante à droite des mots.
-				<br/><br/>
-				Exemple:
-				<br/>
-				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
-			</h5>
+					<div class="blue-text">
+						MERCI D'AVOIR DONNE VOTRE ACCORD POUR REALISER CET EXERCICE
+					</div>
+					<br/><br/>
+					Cinq mots vont s'afficher.
+					<br/>
+					Pour chacun des mots, tapez la première lettre du mot.
+					<br/>
+				 	(La lettre tapée s'affiche dans la case correspondante.)
+					<br/><br/>
+					Exemple:
+					<br/>
+					Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b>, tapez <b>C, B, C, R, R</b>.
+				</h5>
 				<br/>
 			</div>
 			<div class="form-signin">
@@ -96,9 +102,8 @@ $version = "0.01";
 				<br/><br/><br/>
 				<br/><h5>
 				Cinq mots vont s'afficher.<br/>
-				Pour chacun des mots, tapez la première lettre de <b>la couleur de l'encre </b>dans laquelle le mot est écrit,
-				<br/>
-				dans la case correspondante à droite des mots.<br/>
+				Pour chacun des mots, tapez la première lettre de <b>la couleur de l'encre </b>dans laquelle le mot est écrit.
+				<br/><br/>
 				Exemple:
 				<br/>
 				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b> écrit en <b>ROUGE, VERT, JAUNE, ROUGE, ROUGE,</b><br/>
@@ -151,7 +156,9 @@ $version = "0.01";
 				</div> <!-- fin test3 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
-			<br/><br/><br/><br/>
+			<br/><br/>
+			<h5 id="trial-consigne"></h5>
+			<br/><br/>
 			<div id="wordpad">
 				<div id="wordpad-nums">
 					<div class="num">1</div>

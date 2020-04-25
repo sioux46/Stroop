@@ -118,14 +118,14 @@ function writeTrialToProto() {
   // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
   var trial = {};
 
-  trial.observateur = observateur;
+//  trial.observateur = observateur;
   trial.participant = participant;
-  trial.lieu = lieu;
+//  trial.lieu = lieu;
   let datetime = dateTime();
   trial.date = datetime.date;
   trial.time = datetime.time;
   trial.phase = phaseNames[phaseNum];
-  trial.ligne = line;
+  trial.ligne = line + 1;
   trial.col = col + 1;
   trial.mot = $(`#word${col}`).text();
   trial.couleur = itemTab[line][col].couleur;
@@ -167,6 +167,8 @@ function initPhase() {
   var phase = phaseNames[phaseNum];
   line = 0;
   col = 0;
+  if ( phase == "pretest1" || phase == "test1" ) $("#trial-consigne").text("Tapez la première lettre de chaque mot.");
+  else $("#trial-consigne").text("Tapez la couleur de la première lettre de chaque mot.");
   $(`#box${col}`).css("border","2px solid black");
   displayTrial();
   $("#boutTrial").css({"display":"none"});
@@ -189,34 +191,40 @@ $(document).ready(function () {
     if ( !waitForKey ) return;
 
     waitForKey = false;
+    var theChar = ev.originalEvent.key;
+    if ( (theChar.charCodeAt(0) > 64 &&
+          theChar.charCodeAt(0) < 91)   ||
 
-    $(`#box${col}`).text((ev.originalEvent.key).toUpperCase());
-    writeTrialToProto();
-    trialTime = now();
+         (theChar.charCodeAt(0) > 96 &&
+          theChar.charCodeAt(0) < 123) ) {
 
-    $(`#box${col}`).css("border","2px solid white");
-    if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
-    if ( col == 4 ) {
-      /*                                        À REMETTRE ÀPRES DEBBUG
-      if ( phaseNames[phaseNum] == "pretest1" &&
-              !goodCharAnswers() ) {  // erreur pretest1
-        alert("Vous avez fait une erreur. On recommence.");
-        initPhase();
+      $(`#box${col}`).text((theChar).toUpperCase());
+      writeTrialToProto();
+      trialTime = now();
+
+      $(`#box${col}`).css("border","2px solid white");
+      if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
+      if ( col == 4 ) {
+        /*                                        À REMETTRE ÀPRES DEBBUG */
+        if ( phaseNames[phaseNum] == "pretest1" &&
+                !goodCharAnswers() ) {  // erreur pretest1
+          alert("Vous avez fait une erreur. On recommence.");
+          initPhase();
+          return;
+        }
+        if ( phaseNames[phaseNum] == "pretest2" &&
+                !goodColorAnswers() ) {  // erreur pretest2
+          alert("Vous avez fait une erreur. On recommence.");
+          initPhase();
+          return;
+        }
+      /*                                     FIN   À REMETTRE ÀPRES DEBBUG  */
+        if ( line < itemTab.length - 1 ) $("#boutTrial").css({"display":"block"});
+        else $("#boutPhase").css({"display":"block"});
         return;
       }
-      if ( phaseNames[phaseNum] == "pretest2" &&
-              !goodColorAnswers() ) {  // erreur pretest2
-        alert("Vous avez fait une erreur. On recommence.");
-        initPhase();
-        return;
-      }
-      */
-      if ( line < itemTab.length - 1 ) $("#boutTrial").css({"display":"block"});
-      else $("#boutPhase").css({"display":"block"});
-      return;
+      col++;
     }
-    col++;
-    echo = true;
     waitForKey = true;
   });
 
@@ -253,12 +261,31 @@ $(document).ready(function () {
     lieu = $("#lieu").val();
   });
 
-  // accueil
+  $("#observateur").on("change", function (ev) {
+    observateur = $("#observateur").val();
+  });
+//////////////////////////////////////////////////
+// accueil
   $("#boutPretest1").on("click", function (ev) {
+    /*
+    if ( !observateur || observateur.length > 14 ) {
+      alert("Vérifier le nom de l'observateur.");
+      return;
+    }
+    if ( !lieu || lieu.length > 14 ) {
+      alert("Vérifier le nom du lieu.");
+      return;
+    }
+    */
+
+    if ( !participant || participant.length > 14 ) {
+      alert("Vérifier le nom de du participant.");
+      return;
+    }
     $("#accueil").css({"display":"none"});
     $("#pretest1").css({"display":"block"});
   });
-
+  ////////////////////////////////////////////////
   // doPretest1
   $("#boutDoPretest1").on("click", function (ev) {
     $("#pretest1").css({"display":"none"});
@@ -293,7 +320,7 @@ $(document).ready(function () {
     itemTab = objTest3;
     initPhase();
   });
-
+  /////////////////////////////////////////////////
 
 /////////////////////////////////////////
   objPretest1 = buildObjTab(strPre1);
@@ -302,9 +329,15 @@ $(document).ready(function () {
   objTest2 = buildObjTab(strPhase2);
   objTest3 = buildObjTab(strPhase3);
 
-  $("#accueil").css({"display":"block"});
   $("#participant").val("");
   $("#lieu").val("");
+  $("#observateur").val("");
+
+  $("#lieu").css("display", "none");
+  $("#observateur").css("display", "none");
+
+  $("#accueil").css({"display":"block"});  // start manip
+  //$("#pretest1").css({"display":"block"});
 
 }); // ******************************************************  F I N   R E A D Y
 //  ****************************************************************************
@@ -325,30 +358,34 @@ var participant = "";
 var lieu = "";
 var observateur = "";
 
+/**************************************************************************/
+var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],
 
-var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"]];
-/*
-,["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIRE"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
-*/
+["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIRE"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
+/**************************************************************************/
+/**************************************************************************/
+var strPhase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"],
+
+["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
+/**************************************************************************/
+var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"],
+
+["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];
+/**************************************************************************/
+
+var strPre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
+var strPre2 = [["COKTAIL-ROUGE","APERITIF-BLEU","RIRE-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
+
 var couleurs = {};
 couleurs.BLEU = "blue";
 couleurs.VERT = "green";
 couleurs.JAUNE = "#BABA00";
 couleurs.ROUGE = "red";
 
-var strPhase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"]];
-/*
-,["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];*/
-
-var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"]];
-/*
-,["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];*/
-
-var strPre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
-var strPre2 = [["COKTAIL-ROUGE","APERITIF-BLEU","RIRE-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
-
 var objPretest1;
 var objPretest2;
 var objTest1;
 var objTest2;
 var objTest3;
+
+var version = 0.03;

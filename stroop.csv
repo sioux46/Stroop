@@ -1,0 +1,6 @@
+id,observateur,participant,date,time,lieu,phase,ligne,col,mot,couleur,rep,timeRep
+1,,123,2020-04-25,16:17:20,,pretest1,1,1,VERT,NOIR,V,32416
+2,,123,2020-04-25,16:17:21,,pretest1,1,2,ROUGE,NOIR,R,464
+3,,123,2020-04-25,16:17:21,,pretest1,1,3,JAUNE,NOIR,J,615
+4,,123,2020-04-25,16:17:22,,pretest1,1,4,VERT,NOIR,V,539
+5,,123,2020-04-25,16:17:22,,pretest1,1,5,JAUNE,NOIR,J,556
