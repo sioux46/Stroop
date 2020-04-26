@@ -1,5 +1,5 @@
 <?php
-// downloadCSV.php
+// data.php
 session_start();
 require_once("connectMySQL.php");
 $base=connect();
@@ -7,15 +7,23 @@ $base=connect();
 header("content-type:text/plain; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
-$requete = "SELECT * FROM rowdata ORDER BY `id`";
+$participant = $_GET['participant'];
+if ( $participant ) {
+	$fileName = "stroop$participant ";
+	$requete = "SELECT * FROM rowdata WHERE `participant` = " . $participant . " ORDER BY `id`";
+}
+else {
+	$requete = "SELECT * FROM rowdata ORDER BY `id`";
+	$fileName = "stroop ";
+}
 $result = $base->query($requete);
 $array = arrayResult($result, 1);
-arrayToCsvFile($array, 'stroop.csv');
+arrayToCsvFile($array, "$fileName.csv");
 error_reporting(E_ERROR);
 header('Content-Type: application/octet-stream;');
-header("Content-Disposition: attachment; filename=stroop" . date('y.m.d-H:i:s') . ".csv;");
-header('Content-Length: '.filesize("stroop.csv").';');
-readfile("stroop.csv");
+header("Content-Disposition: attachment; filename=$fileName" . date('y.m.d-H:i:s') . ".csv;");
+header('Content-Length: '.filesize("$fileName.csv").';');
+readfile("$fileName.csv");
 //echo json_encode($array);  // debug
 //******************************************************************************************
 

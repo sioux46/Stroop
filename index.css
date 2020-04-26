@@ -31,6 +31,12 @@
   text-align: left;
 }
 
+#trial-consigne,
+#page-num {
+  text-align: left;
+  margin-left: 55px;
+}
+
 .blue-text {
   color: #007bff;
   text-align: center;

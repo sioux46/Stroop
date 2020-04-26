@@ -1,6 +1,6 @@
 //index.js
 
-
+var version = 0.06;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -159,6 +159,9 @@ function displayTrial() {
     let c = itemTab[line][i].couleur;
     $(`#word${i}`).css("color", couleurs[c]);
   }
+  if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" )
+                            $("#page-num").text(`${line + 1}/${itemTab.length}`);
+
   trialTime = now();
 }
 
@@ -167,11 +170,12 @@ function initPhase() {
   var phase = phaseNames[phaseNum];
   line = 0;
   col = 0;
-  if ( phase == "pretest1" || phase == "test1" ) $("#trial-consigne").text("Tapez la première lettre de chaque mot.");
-  else $("#trial-consigne").text("Tapez la couleur de la première lettre de chaque mot.");
+  if ( phase == "Pretest1" || phase == "Test1" ) $("#trial-consigne").text("Tapez la première lettre de chaque mot.");
+  else $("#trial-consigne").text("Tapez la première lettre de la couleur de l'encre dans laquelle le mot est écrit.");
   $(`#box${col}`).css("border","2px solid black");
   displayTrial();
   $("#boutTrial").css({"display":"none"});
+  suite = "";
   $("#boutPhase").css({"display":"none"});
   $("#doPhase").css({"display":"block"});
   waitForKey = true;
@@ -186,17 +190,31 @@ function initPhase() {
 $(document).ready(function () {
 
 ///////////////////////////////////////////////////////////////////////
-  // saisie clavier
+                                                    // saisie clavier
   $(document).on("keypress", function(ev) {
+
+    if (ev.keyCode === 13 || ev.keyCode === 32 ) {
+
+      if ( col == 4 && suite == "boutTrial" ) {
+        $("#boutTrial").trigger("click");
+      }
+      else if ( col == 4 && suite == "boutPhase" ) {
+        $("#boutPhase").trigger("click");
+      }
+      else if ( suite == "boutPretest1" ) {
+        $(`#${suite}`).trigger("click");
+      }
+      else if ( suite ) {
+        $(`#boutDo${suite}`).trigger("click");
+      }
+      return;
+    }
+
     if ( !waitForKey ) return;
 
     waitForKey = false;
     var theChar = ev.originalEvent.key;
-    if ( (theChar.charCodeAt(0) > 64 &&
-          theChar.charCodeAt(0) < 91)   ||
-
-         (theChar.charCodeAt(0) > 96 &&
-          theChar.charCodeAt(0) < 123) ) {
+    if ( theChar.match(/[A-Za-z]/) ) {
 
       $(`#box${col}`).text((theChar).toUpperCase());
       writeTrialToProto();
@@ -206,21 +224,27 @@ $(document).ready(function () {
       if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
       if ( col == 4 ) {
         /*                                        À REMETTRE ÀPRES DEBBUG */
-        if ( phaseNames[phaseNum] == "pretest1" &&
+        if ( phaseNames[phaseNum] == "Pretest1" &&
                 !goodCharAnswers() ) {  // erreur pretest1
           alert("Vous avez fait une erreur. On recommence.");
           initPhase();
           return;
         }
-        if ( phaseNames[phaseNum] == "pretest2" &&
+        if ( phaseNames[phaseNum] == "Pretest2" &&
                 !goodColorAnswers() ) {  // erreur pretest2
           alert("Vous avez fait une erreur. On recommence.");
           initPhase();
           return;
         }
-      /*                                     FIN   À REMETTRE ÀPRES DEBBUG  */
-        if ( line < itemTab.length - 1 ) $("#boutTrial").css({"display":"block"});
-        else $("#boutPhase").css({"display":"block"});
+        /*                                  FIN   À REMETTRE ÀPRES DEBBUG  */
+        if ( line < itemTab.length - 1 ) {
+          $("#boutTrial").css({"display":"block"});
+          suite = "boutTrial";
+        }
+        else {
+          $("#boutPhase").css({"display":"block"});
+          suite = "boutPhase";
+        }
         return;
       }
       col++;
@@ -228,17 +252,6 @@ $(document).ready(function () {
     waitForKey = true;
   });
 
-///////////////////////////////////////////////////////////////////////
-  // phase suivante
-  $("#boutPhase").on("click", function (ev) {
-    $("#doPhase").css({"display":"none"});
-    phaseNum++;
-    if ( phaseNum < 4 ) $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
-    else {
-      saveProtoToBase();
-      $("#endStroop").css({"display":"block"});
-    }
-  });
 ///////////////////////////////////////////////////////////////////////
   // essai suivant
   $("#boutTrial").on("click", function (ev) {
@@ -248,10 +261,28 @@ $(document).ready(function () {
     displayTrial();
     $("#boutTrial").css({"display":"none"});
     $("#doPhase").css({"display":"block"});
+    suite = "";
     waitForKey = true;
     console.log(`ligne: ${line}`);
     console.log(line);
   });
+
+  ///////////////////////////////////////////////////////////////////////
+    // phase suivante
+    $("#boutPhase").on("click", function (ev) {
+      $("#doPhase").css({"display":"none"});
+      suite = "";
+      phaseNum++;
+      if ( phaseNum < 5 ) {
+        $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
+        suite = phaseNames[phaseNum];
+      }
+      else {
+        saveProtoToBase();
+        $("#endStroop").css({"display":"block"});
+      }
+    });
+
 ///////////////////////////////////////////////////////////////////////
   $("#participant").on("change", function (ev) {
     participant = $("#participant").val();
@@ -279,44 +310,45 @@ $(document).ready(function () {
     */
 
     if ( !participant || participant.length > 14 ) {
-      alert("Vérifier le nom de du participant.");
+      alert("Vérifier le numéro du participant.");
       return;
     }
     $("#accueil").css({"display":"none"});
-    $("#pretest1").css({"display":"block"});
+    $("#Pretest1").css({"display":"block"});
+    suite = "Pretest1";
   });
   ////////////////////////////////////////////////
   // doPretest1
   $("#boutDoPretest1").on("click", function (ev) {
-    $("#pretest1").css({"display":"none"});
+    $("#Pretest1").css({"display":"none"});
     itemTab = objPretest1;
     initPhase();
   });
 
   // doTest1
   $("#boutDoTest1").on("click", function (ev) {
-    $("#test1").css({"display":"none"});
+    $("#Test1").css({"display":"none"});
     itemTab = objTest1;
     initPhase();
   });
 
   // doPretest2
   $("#boutDoPretest2").on("click", function (ev) {
-    $("#pretest2").css({"display":"none"});
+    $("#Pretest2").css({"display":"none"});
     itemTab = objPretest2;
     initPhase();
   });
 
   // doTest2
   $("#boutDoTest2").on("click", function (ev) {
-    $("#test2").css({"display":"none"});
+    $("#Test2").css({"display":"none"});
     itemTab = objTest2;
     initPhase();
   });
 
   // doTest3
   $("#boutDoTest3").on("click", function (ev) {
-    $("#test3").css({"display":"none"});
+    $("#Test3").css({"display":"none"});
     itemTab = objTest3;
     initPhase();
   });
@@ -336,13 +368,17 @@ $(document).ready(function () {
   $("#lieu").css("display", "none");
   $("#observateur").css("display", "none");
 
+  $("#version").text(`Sébastien Poitrenaud pour LutinUserlab v${version}`);
+
+  //$("#Pretest1").css({"display":"block"});  // DEBBUG
   $("#accueil").css({"display":"block"});  // start manip
-  //$("#pretest1").css({"display":"block"});
+  suite = "boutPretest1";
+
 
 }); // ******************************************************  F I N   R E A D Y
 //  ****************************************************************************
 
-var phaseNames = ["pretest1", "test1", "pretest2", "test2", "test3"];
+var phaseNames = ["Pretest1", "Test1", "Pretest2", "Test2", "Test3"];
 
 var waitForKey = false;
 var phaseNum;
@@ -352,6 +388,7 @@ var col;
 var phaseNum = 0;
 
 var trialTime;
+var suite = "";
 
 var proto = [];
 var participant = "";
@@ -387,5 +424,3 @@ var objPretest2;
 var objTest1;
 var objTest2;
 var objTest3;
-
-var version = 0.03;

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 // Nomenclature : [Années depuis 2020].[Mois].[Jour].[Nombre dans la journée]
-$version = "0.01";
 ?>
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -51,10 +50,10 @@ $version = "0.01";
 		  </div>-->
 		  <button id="boutPretest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			<br><br><br><br><br>
-			<h6 style="color:#bbb">Sébastien Poitrenaud pour LutinUserlab v0.02</h6>
+			<h6><div id="version" style="color:#bbb"></div></h6>
 		</div> <!-- fin accueil -->
 <!-- ************************************* pretest1 -->
-		<div id="pretest1" class="section consigne">
+		<div id="Pretest1" class="section consigne">
 			<div class="consigne-texte">
 				<br/><br/><br/>
 				<h5>
@@ -75,11 +74,11 @@ $version = "0.01";
 				<br/>
 			</div>
 			<div class="form-signin">
-				<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+				<button id="boutDoPretest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			</div>
 		</div> <!-- fin pretest1 -->
 <!-- ************************************* test1 -->
-		<div id="test1" class="section consigne">
+		<div id="Test1" class="section consigne">
 			<div class="consigne-texte">
 				<br/><br/><br/>
 				<h5>Très bien!</h5>
@@ -93,11 +92,11 @@ $version = "0.01";
 			</div>
 			<br/>
 			<div class="form-signin">
-				<button id="boutDoTest1" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+				<button id="boutDoTest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			</div>
 		</div> <!-- fin test1 -->
 <!-- ************************************* pretest2 -->
-		<div id="pretest2" class="section consigne">
+		<div id="Pretest2" class="section consigne">
 			<div class="consigne-texte">
 				<br/><br/><br/>
 				<br/><h5>
@@ -106,7 +105,12 @@ $version = "0.01";
 				<br/><br/>
 				Exemple:
 				<br/>
-				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b> écrit en <b>ROUGE, VERT, JAUNE, ROUGE, ROUGE,</b><br/>
+				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b> écrit en <b>
+					<span style="color:red">ROUGE</span>,&nbsp;
+					<span style="color:green">VERT</span>,&nbsp;
+					<span style="color:#BABA00">JAUNE</span>,&nbsp;
+					<span style="color:red">ROUGE</span>,&nbsp;
+					<span style="color:red">ROUGE</span>,&nbsp;</b><br/>
 				 il faut tapez <b>R, V, J, R, R.</b>
 				<br/>
 				</h5>
@@ -114,11 +118,11 @@ $version = "0.01";
 			</div>
 			<br/>
 			<div class="form-signin">
-				<button id="boutDoPretest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+				<button id="boutDoPretest2" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			</div>
 		</div> <!-- fin pretest2 -->
 <!-- ************************************* test2 -->
-		<div id="test2" class="section consigne">
+		<div id="Test2" class="section consigne">
 			<div class="consigne-texte">
 				<br/><br/><br/>
 				<h5>Très bien!</h5>
@@ -126,17 +130,17 @@ $version = "0.01";
 				<h5>
 				Maintenant nous allons refaire la même chose 10 fois,
 				<br/>
-				 mais il faut taper la premiere lettre de la couleur de chaque mot le plus vite possible.
+				 mais il faut taper la premiere lettre de la couleur de l'encre dans laquelle le mot est écrit le plus vite possible.
 			</h5>
 				<br/>
 			</div>
 			<br/>
 			<div class="form-signin">
-				<button id="boutDoTest2" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+				<button id="boutDoTest2" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			</div>
 		</div> <!-- fin test2 -->
 		<!-- ************************************* test3 -->
-				<div id="test3" class="section consigne">
+				<div id="Test3" class="section consigne">
 					<div class="consigne-texte">
 						<br/><br/><br/>
 						<h5>Très bien!
@@ -151,13 +155,14 @@ $version = "0.01";
 					</div>
 					<br/>
 					<div class="form-signin">
-						<button id="boutDoTest3" class="btn btn-lg btn-primary btn-block">Cliquez-moi pour commencer</button>
+						<button id="boutDoTest3" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 					</div>
 				</div> <!-- fin test3 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
 			<br/><br/>
-			<h5 id="trial-consigne"></h5>
+			<h4 id="page-num"></h4>
+			<h4 id="trial-consigne"></h4>
 			<br/><br/>
 			<div id="wordpad">
 				<div id="wordpad-nums">
