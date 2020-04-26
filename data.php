@@ -9,21 +9,22 @@ header("Access-Control-Allow-Origin: *");
 
 $participant = $_GET['participant'];
 if ( $participant ) {
-	$fileName = "stroop$participant ";
+	$fileName = "stroop$participant-";
 	$requete = "SELECT * FROM rowdata WHERE `participant` = " . $participant . " ORDER BY `id`";
 }
 else {
 	$requete = "SELECT * FROM rowdata ORDER BY `id`";
-	$fileName = "stroop ";
+	$fileName = "stroop-";
 }
 $result = $base->query($requete);
 $array = arrayResult($result, 1);
-arrayToCsvFile($array, "$fileName.csv");
+//arrayToCsvFile($array, "$fileName.csv");
+arrayToCsvFile($array, "stroop.csv");
 error_reporting(E_ERROR);
 header('Content-Type: application/octet-stream;');
 header("Content-Disposition: attachment; filename=$fileName" . date('y.m.d-H:i:s') . ".csv;");
-header('Content-Length: '.filesize("$fileName.csv").';');
-readfile("$fileName.csv");
+header('Content-Length: '.filesize("stroop.csv").';');
+readfile("stroop.csv");
 //echo json_encode($array);  // debug
 //******************************************************************************************
 
