@@ -31,6 +31,8 @@
 	<div id="stroop" class="text-center">
 <!-- ************************************* -->
 		<div id="accueil" class="section form-signin">
+			<div id="dataAll"></div>
+			<div id="dataOne"></div>
 		  <div class="h3 mb-3 font-weight-large">Bienvenue dans STROOP!</div>
 			<br>
 			<br>

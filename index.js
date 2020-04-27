@@ -131,6 +131,14 @@ function writeTrialToProto() {
   trial.couleur = itemTab[line][col].couleur;
   trial.rep = $(`#box${col}`).text();
   trial.timeRep = now() - trialTime;
+  if ( trial.phase == "Pretest1" || trial.phase == "Test1") {
+    if ( trial.rep == trial.mot[0] ) trial.err = 0;
+    else trial.err = 1;
+  }
+  else {
+    if ( trial.rep == trial.couleur[0] ) trial.err = 0;
+    else trial.err = 1;
+  }
 
   proto.push(trial);
 }
@@ -353,6 +361,17 @@ $(document).ready(function () {
     initPhase();
   });
   /////////////////////////////////////////////////
+  //
+  $("#dataAll").on("dblclick", function (ev) {
+    location = "https://sioux.univ-paris8.fr/stroop/data.php";
+  });
+
+  $("#dataOne").css("left", `${String(window.innerWidth - 80)}px`);
+  $("#dataOne").on("dblclick", function (ev) {
+    let num = prompt("participant");
+    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+  });
+
 
 /////////////////////////////////////////
   objPretest1 = buildObjTab(strPre1);
@@ -373,6 +392,7 @@ $(document).ready(function () {
   //$("#Pretest1").css({"display":"block"});  // DEBBUG
   $("#accueil").css({"display":"block"});  // start manip
   suite = "boutPretest1";
+
 
 
 }); // ******************************************************  F I N   R E A D Y
