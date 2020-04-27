@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.10;
+var version = 0.11;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -363,7 +363,7 @@ $(document).ready(function () {
 
   //
   $("#downloadProto").on("click", function (ev) {
-    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${trial.participant}`;
+    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${proto[0].participant}`;
   });
   /////////////////////////////////////////////////
   //
