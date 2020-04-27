@@ -92,6 +92,28 @@ function dateTime() {
 	return {date:date, time:time};
 }
 
+// verif nouveau participant
+function verifNewParticipant () {
+  $.ajax({
+    'url': 'verifParticipant.php',
+    'type': 'post',
+    'data': { participant: participant },
+    'complete': function(xhr, result) {
+      if (result != 'success') {
+        alert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
+      }
+      else {
+        var reponse = xhr.responseText;
+        if ( reponse == "OK" ) return;
+        else {
+          $("#participant").text("");
+          alert("Ce numéro a déjà été utilisé.");
+        }
+      }
+    }
+  });
+}
+
 // sauve proto sur bd
 function saveProtoToBase () {
   $.ajax({
@@ -324,6 +346,10 @@ $(document).ready(function () {
     $("#accueil").css({"display":"none"});
     $("#Pretest1").css({"display":"block"});
     suite = "Pretest1";
+  });
+  //////////////////
+  $("#participant").on("blur", function (ev) {
+    verifNewParticipant();
   });
   ////////////////////////////////////////////////
   // doPretest1
