@@ -214,6 +214,7 @@
 						Merci beaucoup.
 						</h5>
 						<br/>
+						<button id="downloadProto" class="btn btn-lg btn-primary">Télecharger le fichier résultat</button>
 					</div>
 					<br/>
 				</div> <!-- fin test3 -->

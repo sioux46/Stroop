@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.08;
+var version = 0.09;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -360,6 +360,11 @@ $(document).ready(function () {
     itemTab = objTest3;
     initPhase();
   });
+
+  //
+  $("#downloadProto").on("click", function (ev) {
+    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+  });
   /////////////////////////////////////////////////
   //
   $("#dataAll").on("dblclick", function (ev) {
@@ -369,7 +374,7 @@ $(document).ready(function () {
   $("#dataOne").css("left", `${String(window.innerWidth - 80)}px`);
   $("#dataOne").on("dblclick", function (ev) {
     let num = prompt("participant");
-    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${trial.participant}`;
   });
 
 
