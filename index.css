@@ -48,8 +48,9 @@
 
 #trial-consigne,
 #page-num {
+  position: relative;
   text-align: left;
-  margin-left: 130px;
+  margin-left: 55px;
 }
 
 .blue-text {

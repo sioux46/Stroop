@@ -5,7 +5,7 @@
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html charset=utf-8" />
-	<meta name="viewport" content="width=device-width,  initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, maximum-scale=0.5, user-scalable=yes"> <!--  -->
+	<meta name="viewport" content="width=device-width,  initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8, user-scalable=no"> <!--  -->
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Stroop Lutin</title>
 
@@ -107,13 +107,14 @@
 				<br/><br/>
 				Exemple:
 				<br/>
-				Si on a les mots <b>CHAT BLEU CAROTTE RIRE ROUGE</b> écrit en <b>
-					<span style="color:red">ROUGE</span>,&nbsp;
-					<span style="color:green">VERT</span>,&nbsp;
-					<span style="color:#BABA00">JAUNE</span>,&nbsp;
-					<span style="color:red">ROUGE</span>,&nbsp;
-					<span style="color:red">ROUGE</span>,&nbsp;</b><br/>
-				 il faut tapez <b>R, V, J, R, R.</b>
+					Si on a les mots <b>
+					<span style="color:red">CHAT</span>,&nbsp;
+					<span style="color:green">BLEU</span>,&nbsp;
+					<span style="color:#BABA00">CAROTTE</span>,&nbsp;
+					<span style="color:red">RIRE</span>,&nbsp;
+					<span style="color:red">ROUGE</span>&nbsp;</b><br/>
+				</b> écrits en <b>ROUGE, VERT, JAUNE, ROUGE, ROUGE,</b><br/>
+					il faut tapez <b>R, V, J, R, R.</b>
 				<br/>
 				</h5>
 				<br/>
