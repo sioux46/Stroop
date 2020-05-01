@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.15;
+var version = 0.16;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -100,14 +100,21 @@ function verifNewParticipant () {
     'data': { participant: participant },
     'complete': function(xhr, result) {
       if (result != 'success') {
-        alert ( 'Erreur réseau. Protocole non sauvé.', 'Stroop error!');
+        alert ( 'Erreur réseau ', 'Stroop error!');
       }
       else {
         var reponse = xhr.responseText;
-        if ( reponse == "OK" ) return;
+        if ( reponse == "OK" ) {
+          $("#accueil").css({"display":"none"});
+          $("#Pretest1").css({"display":"block"});
+          suite = "Pretest1";
+          return true;
+        }
         else {
           $("#participant").text("");
           alert("Ce numéro a déjà été utilisé.");
+          $("#participant").focus();
+          return false;
         }
       }
     }
@@ -192,6 +199,7 @@ function displayTrial() {
   if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" )
                             $("#page-num").text(`${line + 1}/${itemTab.length}`);
 
+  // $("#mobile-keyboard").focus();
   trialTime = now();
 }
 
@@ -340,16 +348,16 @@ $(document).ready(function () {
     */
 
     if ( !participant || participant.length > 14 ) {
+      //$("#boutPretest1").blur();
+      $("#participant").focus();
       alert("Vérifier le numéro du participant.");
       return;
     }
-    $("#accueil").css({"display":"none"});
-    $("#Pretest1").css({"display":"block"});
-    suite = "Pretest1";
+    verifNewParticipant();
   });
   //////////////////
   $("#participant").on("blur", function (ev) {
-    verifNewParticipant();
+    //verifNewParticipant();
   });
   ////////////////////////////////////////////////
   // doPretest1
@@ -422,6 +430,7 @@ $(document).ready(function () {
 
   //$("#Pretest1").css({"display":"block"});  // DEBBUG
   $("#accueil").css({"display":"block"});  // start manip
+  $("#participant").focus();
   suite = "boutPretest1";
 
 

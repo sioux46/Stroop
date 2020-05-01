@@ -1,5 +1,10 @@
 /* index.css STROOP */
 
+#mobile-keyboard {
+  position: fixed;
+  left: 120%;
+}
+
 #dataAll {
   position: fixed;
   top: 0;

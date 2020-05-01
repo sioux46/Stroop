@@ -163,6 +163,7 @@
 				</div> <!-- fin test3 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
+			<!--<input id="mobile-keyboard" type="text">-->
 			<br/><br/>
 			<h4 id="page-num"></h4>
 			<h4 id="trial-consigne"></h4>
