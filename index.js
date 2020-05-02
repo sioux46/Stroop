@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.16;
+var version = 0.17;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -407,8 +407,11 @@ $(document).ready(function () {
 
   $("#dataOne").css("left", `${String(window.innerWidth - 80)}px`);
   $("#dataOne").on("dblclick", function (ev) {
-    let num = prompt("participant");
-    location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+    let num = "";
+    num = prompt("participant");
+    if ( num ) {
+      location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+    }
   });
 
 
