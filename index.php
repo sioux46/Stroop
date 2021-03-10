@@ -39,7 +39,7 @@
 			<label for="observateur" class="sr-only">Observateur</label>
 		  <input id="observateur" type="text" class="form-control" placeholder="Nom de l'observateur" required="" autofocus="">
 		  <label for="participant" class="sr-only">Participant</label>
-		  <input id="participant" type="number" step="1" min="1"  class="form-control" placeholder="Numéro du participant" required="" autofocus="">
+		  <input id="participant" type="text" class="form-control" placeholder="Identifiant de la passation (15 caractères max.)" required="" autofocus="">
 			<label for="lieu" class="sr-only">Lieu</label>
 		  <input id="lieu" type="text" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
 		  <!--<label for="inputPassword" class="sr-only">Password</label>

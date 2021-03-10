@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.17;
+var version = 0.31;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ function verifNewParticipant () {
         }
         else {
           $("#participant").text("");
-          alert("Ce numéro a déjà été utilisé.");
+          alert("Cet identifiant est déjà utilisé");
           $("#participant").focus();
           return false;
         }
@@ -336,21 +336,23 @@ $(document).ready(function () {
 //////////////////////////////////////////////////
 // accueil
   $("#boutPretest1").on("click", function (ev) {
+
     /*
-    if ( !observateur || observateur.length > 14 ) {
-      alert("Vérifier le nom de l'observateur.");
+    if ( !observateur || observateur.length > 15 ) {
+      alert("Vérifier le nom de l'observateur");
       return;
     }
+
     if ( !lieu || lieu.length > 14 ) {
       alert("Vérifier le nom du lieu.");
       return;
     }
     */
 
-    if ( !participant || participant.length > 14 ) {
+    if ( !participant || participant.length > 15 ) {
       //$("#boutPretest1").blur();
       $("#participant").focus();
-      alert("Vérifier le numéro du participant.");
+      alert("Vérifier identifiant");
       return;
     }
     verifNewParticipant();
