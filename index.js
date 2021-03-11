@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.31;
+var version = 0.32;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -408,11 +408,13 @@ $(document).ready(function () {
   });
 
   $("#dataOne").css("left", `${String(window.innerWidth - 80)}px`);
+
   $("#dataOne").on("dblclick", function (ev) {
-    let num = "";
-    num = prompt("participant");
-    if ( num ) {
-      location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+    let id = "";
+    id = String(prompt("participant"));
+    if ( id ) {
+      //location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${id}`;
+      location = "https://sioux.univ-paris8.fr/stroop/data.php?participant=" + id;
     }
   });
 
