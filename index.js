@@ -412,7 +412,7 @@ $(document).ready(function () {
     let num = "";
     num = prompt("participant");
     if ( num ) {
-      location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${num}`;
+      location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${String(num)}`;
     }
   });
 
