@@ -10,7 +10,7 @@ header("Access-Control-Allow-Origin: *");
 $participant = $_GET['participant'];
 
 if ( $participant ) {
-	$fileName = "stroop$participant-";
+	$fileName = "stroop_$participant-";
 	$requete = "SELECT * FROM rowdata WHERE `participant` = '$participant' ORDER BY `id`";
 }
 else {
