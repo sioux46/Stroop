@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-// Nomenclature : [Années depuis 2020].[Mois].[Jour].[Nombre dans la journée]
+$condition = $_GET['condition'];
 ?>
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -222,7 +222,8 @@
 				</div> <!-- fin test3 -->
 <!-- ************************************* -->
 	</div> <!-- fin stroop -->
-	<script src="index.js"></script>
 
+	<script> var condition = '<?php echo $condition ?>'  </script>
+	<script src="index.js"></script>
 </body>
 </html>

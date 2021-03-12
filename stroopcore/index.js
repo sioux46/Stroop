@@ -401,7 +401,7 @@ $(document).ready(function () {
   $("#downloadProto").on("click", function (ev) {
     location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${proto[0].participant}`;
   });
-  /////////////////////////////////////////////////
+  //////////////////////////////////////////////////////
   //
   $("#dataAll").on("dblclick", function (ev) {
     location = "https://sioux.univ-paris8.fr/stroop/data.php";
