@@ -55,29 +55,6 @@ function buildObjTab(table) {
   return objTab;
 }
 
-/* sauve proto sur bd
-function MODEL_AJAX(data, url) {
-$.ajax({
-  'url': url,
-  'data': { 'data':theData },
-  'complete': function(xhr, result) {
-    //
-    if (result != 'success') {
-      //
-    }
-    else {
-      var reponse = xhr.responseText;
-      if (reponse != 'OK') {
-        //
-      }
-      else {
-        //
-      }
-    }
-  }
-});
-}*/
-
 //
 function dateTime() {
 	var dt = new Date();
@@ -149,7 +126,7 @@ function writeTrialToProto() {
 
 //  trial.observateur = observateur;
   trial.participant = participant;
-//  trial.lieu = lieu;
+  trial.condition = condition[0];
   let datetime = dateTime();
   trial.date = datetime.date;
   trial.time = datetime.time;
@@ -311,7 +288,7 @@ $(document).ready(function () {
       $("#doPhase").css({"display":"none"});
       suite = "";
       phaseNum++;
-      if ( phaseNum < 5 ) {
+      if ( phaseNum < 5 ) { // < 5
         $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
         suite = phaseNames[phaseNum];
       }
@@ -349,10 +326,13 @@ $(document).ready(function () {
     }
     */
 
-    if ( !participant || participant.length > 15 ) {
+    participant = $.trim(participant);
+    if (  !participant ||
+          participant.length > 15 ||
+          !participant.match(/^(\w|_|-)+$/) ) {
       //$("#boutPretest1").blur();
       $("#participant").focus();
-      alert("Vérifier identifiant");
+      alert("Vérifier l'identifiant ( caractères autorisés: alphanumérique, tiret haut et tiret bas, maximum 15 caractères)");
       return;
     }
     verifNewParticipant();
@@ -448,7 +428,6 @@ $(document).ready(function () {
 var phaseNames = ["Pretest1", "Test1", "Pretest2", "Test2", "Test3"];
 
 var waitForKey = false;
-var phaseNum;
 var itemTab;
 var line;
 var col;
@@ -464,16 +443,13 @@ var observateur = "";
 
 /**************************************************************************/
 var strPhase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],
-
 ["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
 /**************************************************************************/
 /**************************************************************************/
 var strPhase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"],
-
 ["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
 /**************************************************************************/
 var strPhase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"],
-
 ["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];
 /**************************************************************************/
 

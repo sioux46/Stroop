@@ -37,6 +37,8 @@ for ( $i = 0; $i < count($rawdata); $i++ ) {
 
   $query = $query . ", `err` = '" . $rawdata[$i]['err'] . "'";
 
+  $query = $query . ", `condition` = '" . $rawdata[$i]['condition'] . "'";
+
   $query = $query . ", `timeRep` = '" . $rawdata[$i]['timeRep'] . "';";
 
 
