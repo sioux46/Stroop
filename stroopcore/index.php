@@ -163,7 +163,7 @@ $condition = $_GET['condition'];
 				</div> <!-- fin test3 -->
 <!-- ************************************* doPhase -->
 		<div id="doPhase" class="section phase">
-			<!--<input id="mobile-keyboard" type="text">-->
+			<img id="face"></img>
 			<br/><br/>
 			<h4 id="page-num"></h4>
 			<h4 id="trial-consigne"></h4>
@@ -207,7 +207,7 @@ $condition = $_GET['condition'];
 				<button id="boutPhase" class="btn btn-lg btn-primary btn-block">Suite</button>
 			</div>
 		</div> <!-- fin doPhase -->
-		<!-- ************************************* test3 -->
+		<!-- ************************************* endStroop -->
 				<div id="endStroop" class="section consigne">
 					<div class="consigne-texte">
 						<br/><br/><br/>
