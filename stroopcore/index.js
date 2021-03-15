@@ -377,11 +377,12 @@ $(document).ready(function () {
     initPhase();
   });
 
+  ///////////////////////////////////////////////
   //
   $("#downloadProto").on("click", function (ev) {
     location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${proto[0].participant}`;
   });
-  //////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
   //
   $("#dataAll").on("dblclick", function (ev) {
     location = "https://sioux.univ-paris8.fr/stroop/data.php";
@@ -393,11 +394,11 @@ $(document).ready(function () {
     let id = "";
     id = String(prompt("participant"));
     if ( id ) {
-      //location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${id}`;
-      location = "https://sioux.univ-paris8.fr/stroop/data.php?participant=" + id;
+      location = `https://sioux.univ-paris8.fr/stroop/data.php?participant=${id}`;
+      // location = "https://sioux.univ-paris8.fr/stroop/data.php?participant=" + id;
     }
   });
-
+  ///////////////////////////////////////////////////
 
 /////////////////////////////////////////
   // gestion conditions /////////////////
@@ -452,17 +453,17 @@ var observateur = "";
 
 /**************************************************************************/
 var classic_Phase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],
-//];/*
+];/*
 ["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],
 ["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
-//*/
+*/
 /**************************************************************************/
 /**************************************************************************/
 var classic_Phase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],
-//];/*
+];/*
 ["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"],
 ["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
-//*/
+*/
 /**************************************************************************/
 var classic_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],
 //];/*
@@ -471,7 +472,7 @@ var classic_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","T
 /**************************************************************************/
 var bienveil_malveil_Phase3 =
 [["AFFLICTION-ROUGE","BONHEUR-JAUNE","DÉLAISSEMENT-ROUGE","EXULTATION-VERT","DÉSESPOIR-BLEU"],
-//];/*
+];/*
 ["JOIE-VERT","ESSEULÉ-BLEU","LIESSE-BLEU","ISOLEMENT-JAUNE","CONTENTEMENT-ROUGE"],
 ["ABATTEMENT-JAUNE","DÉLICE-VERT","MÉLANCOLIE-ROUGE","PLAISIR-BLEU","MOROSITÉ-JAUNE"],
 ["RÉGAL-ROUGE","NOSTALGIE-BLEU","SATISFACTION-VERT","PESSIMISME-JAUNE","VOLUPTÉ-ROUGE"],
@@ -479,9 +480,9 @@ var bienveil_malveil_Phase3 =
 ["ALLÉGRESSE-JAUNE","CHAGRIN-BLEU","EUPHORIE-ROUGE","ABANDON-JAUNE","HEUREUX-VERT"],
 ["ENNUI-ROUGE","JUBILATION-VERT","INCONSOLABLE-JAUNE","BÉNÉFIQUE-BLEU","LUGUBRE-BLEU"],
 ["DÉLECTATION-VERT","MAUSSADE-JAUNE","JOUISSANCE-BLEU","MORNE-ROUGE","POSITIF-VERT"],
-["NAVRÉ-JAUNE","RÉJOUISSANCE-VERT","PEINE-BLEU","SENSUALITÉ-ROUGE"],
+["NAVRÉ-JAUNE","RÉJOUISSANCE-VERT","PEINE-BLEU","SENSUALITÉ-ROUGE","SENSUALITÉ-ROUGE"],
 ["MALHEUR-JAUNE","AMUSEMENT-ROUGE","SOLITUDE-BLEU","BONNE HUMEUR-VERT","TACITURNE-JAUNE"]];
-//*/
+*/
 
 /**************************************************************************/
 var classic_Pre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
