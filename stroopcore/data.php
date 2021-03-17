@@ -11,7 +11,7 @@ $participant = $_GET['participant'];
 
 if ( $participant ) {
 	$fileName = "stroop_$participant-";
-	$requete = "SELECT * FROM rowdata WHERE `participant` = '$participant' ORDER BY `id`";
+	$requete = "SELECT * FROM rowdata WHERE `participant` RLIKE '$participant' ORDER BY `id`";
 }
 else {
 	$requete = "SELECT * FROM rowdata ORDER BY `id`";
@@ -62,7 +62,10 @@ function arrayToCsvFile($tab, $fileName) {
 	if ($f = @fopen($fileName, 'w')) {
 		flock($f, LOCK_SH);
 		for ($i = 0; $i < count($tab); $i++) {
-			fputcsv($f, $tab[$i]);
+			// fputcsv($f, $tab[$i]);  // à rétablir à la place du patch
+			// patch pour STROOP
+			if ( $i == 9 ) fputcsv($f, strtoupper($tab[$i]));
+			else fputcsv($f, $tab[$i]);
 		}
 		flock($f, LOCK_UN);
 		fclose($f);
