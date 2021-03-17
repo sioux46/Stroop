@@ -8,10 +8,14 @@ header("content-type:text/plain; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
 $participant = $_GET['participant'];
+$literal = $_GET['literal'];
 
 if ( $participant ) {
 	$fileName = "stroop_$participant-";
-	$requete = "SELECT * FROM rowdata WHERE `participant` RLIKE '$participant' ORDER BY `id`";
+	if ( $literal )
+		$requete = "SELECT * FROM rowdata WHERE `participant` = '$participant' ORDER BY `id`";
+	else
+		$requete = "SELECT * FROM rowdata WHERE `participant` RLIKE '$participant' ORDER BY `id`";
 }
 else {
 	$requete = "SELECT * FROM rowdata ORDER BY `id`";
@@ -62,10 +66,10 @@ function arrayToCsvFile($tab, $fileName) {
 	if ($f = @fopen($fileName, 'w')) {
 		flock($f, LOCK_SH);
 		for ($i = 0; $i < count($tab); $i++) {
-			// fputcsv($f, $tab[$i]);  // à rétablir à la place du patch
+			fputcsv($f, $tab[$i]);  // à rétablir à la place du patch
 			// patch pour STROOP
-			if ( $i == 9 ) fputcsv($f, strtoupper($tab[$i]));
-			else fputcsv($f, $tab[$i]);
+			//if ( $i == 9 ) fputcsv($f, strtoupper($tab[$i]));
+			//else fputcsv($f, $tab[$i]);
 		}
 		flock($f, LOCK_UN);
 		fclose($f);

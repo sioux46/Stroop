@@ -1,6 +1,6 @@
 //index.js
 
-var version = 0.35;
+var version = 0.37;
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ function writeTrialToProto() {
   trial.phase = phaseNames[phaseNum];
   trial.ligne = line + 1;
   trial.col = col + 1;
-  trial.mot = $(`#word${col}`).text().toLowerCase();
+  trial.mot = $(`#word${col}`).text();   //.toLowerCase();
   trial.couleur = itemTab[line][col].couleur;
   trial.rep = $(`#box${col}`).text();
   trial.timeRep = now() - trialTime;
@@ -379,18 +379,18 @@ $(document).ready(function () {
 
   ///////////////////////////////////////////////
   //
-  $("#downloadProto").on("click", function (ev) {
-    location = `data.php?participant=${proto[0].participant}`;
+  $("#downloadProto").on("click", function (ev) { // fin passation
+    location = `data.php?participant=${proto[0].participant}&literal=yes`;
   });
   ///////////////////////////////////////////////////
   //
-  $("#dataAll").on("dblclick", function (ev) {
+  $("#dataAll").on("dblclick", function (ev) { // toute la table
     //location = "https://sioux.univ-paris8.fr/stroop/stroopcore/data.php";
     location = "data.php";
   });
   //////////////////////////////////////////////////
   $("#dataOne").css("left", `${String(window.innerWidth - 80)}px`);
-  $("#dataOne").on("dblclick", function (ev) {
+  $("#dataOne").on("dblclick", function (ev) { // 1 identifiant
     let id = "";
     id = String(prompt("Identifiant:"));
     if ( id ) {
@@ -472,7 +472,7 @@ var classic_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","T
 /**************************************************************************/
 var bienveil_malveil_Phase3 =
 [["AFFLICTION-ROUGE","BONHEUR-JAUNE","DÉLAISSEMENT-ROUGE","EXULTATION-VERT","DÉSESPOIR-BLEU"],
-//];/*
+];/*
 ["JOIE-VERT","ESSEULÉ-BLEU","LIESSE-BLEU","ISOLEMENT-JAUNE","CONTENTEMENT-ROUGE"],
 ["ABATTEMENT-JAUNE","DÉLICE-VERT","MÉLANCOLIE-ROUGE","PLAISIR-BLEU","MOROSITÉ-JAUNE"],
 ["RÉGAL-ROUGE","NOSTALGIE-BLEU","SATISFACTION-VERT","PESSIMISME-JAUNE","VOLUPTÉ-ROUGE"],
@@ -482,7 +482,7 @@ var bienveil_malveil_Phase3 =
 ["DÉLECTATION-VERT","MAUSSADE-JAUNE","JOUISSANCE-BLEU","MORNE-ROUGE","POSITIF-VERT"],
 ["NAVRÉ-JAUNE","RÉJOUISSANCE-VERT","PEINE-BLEU","SENSUALITÉ-ROUGE","SENSUALITÉ-ROUGE"],
 ["MALHEUR-JAUNE","AMUSEMENT-ROUGE","SOLITUDE-BLEU","BONNE HUMEUR-VERT","TACITURNE-JAUNE"]];
-//*/
+*/
 
 /**************************************************************************/
 var classic_Pre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
