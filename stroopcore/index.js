@@ -1,6 +1,6 @@
 //index.js
 
-var version = "0.37 DEBUG";
+var version = "0.38 DEBUG";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -126,7 +126,8 @@ function writeTrialToProto() {
 
 //  trial.observateur = observateur;
   trial.participant = participant;
-  trial.condition = condition[0];
+  if ( condition == "malveil") trial.condition = "S";
+  else trial.condition = condition[0].toUpperCase();
   let datetime = dateTime();
   trial.date = datetime.date;
   trial.time = datetime.time;
