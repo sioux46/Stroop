@@ -142,6 +142,33 @@ $condition = $_GET['condition'];
 				<button id="boutDoTest2" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			</div>
 		</div> <!-- fin test2 -->
+		<!-- ************************************* pretest3 -->
+				<div id="Pretest3" class="section consigne">
+					<div class="consigne-texte">
+						<br/><br/><br/>
+						<br/><h5>
+						Cinq mots vont s'afficher.<br/>
+						Pour chacun des mots, tapez la première lettre de <b>la couleur de l'encre </b>dans laquelle le mot est écrit.
+						<br/><br/>
+						Exemple:
+						<br/>
+							Si on a les mots <b>
+							<span style="color:red">CHAT</span>,&nbsp;
+							<span style="color:green">BLEU</span>,&nbsp;
+							<span style="color:#BABA00">CAROTTE</span>,&nbsp;
+							<span style="color:red">RIRE</span>,&nbsp;
+							<span style="color:red">ROUGE</span>&nbsp;</b><br/>
+						</b> écrits en <b>ROUGE, VERT, JAUNE, ROUGE, ROUGE,</b><br/>
+							il faut tapez <b>R, V, J, R, R.</b>
+						<br/>
+						</h5>
+						<br/>
+					</div>
+					<br/>
+					<div class="form-signin">
+						<button id="boutDoPretest3" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
+					</div>
+				</div> <!-- fin pretest3 -->
 		<!-- ************************************* test3 -->
 				<div id="Test3" class="section consigne">
 					<div class="consigne-texte">

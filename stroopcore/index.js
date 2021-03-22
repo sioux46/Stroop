@@ -1,6 +1,6 @@
 //index.js
 
-var version = "0.39 DEBUG DEBUG DEBUG DEBUG DEBUG ";
+var version = "0.40 DEBUG DEBUG DEBUG DEBUG DEBUG ";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -121,13 +121,11 @@ function now () {
 }
 
 function writeTrialToProto() {
-  // if ( phaseNum == 0 || phaseNum == 1 ) return; // ignorer pretest
   var trial = {};
 
-//  trial.observateur = observateur;
+  trial.observateur = ""; // observateur;
   trial.participant = participant;
-  if ( condition == "malveil") trial.condition = "S";
-  else trial.condition = condition[0].toUpperCase();
+  trial.condition = condition;
   let datetime = dateTime();
   trial.date = datetime.date;
   trial.time = datetime.time;
@@ -174,7 +172,7 @@ function displayTrial() {
     let c = itemTab[line][i].couleur;
     $(`#word${i}`).css("color", couleurs[c]);
   }
-  if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" )
+  if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" && phaseNames[phaseNum] != "Pretest3" )
                             $("#page-num").text(`${line + 1}/${itemTab.length}`);
 
   // $("#mobile-keyboard").focus();
@@ -252,6 +250,12 @@ $(document).ready(function () {
           initPhase();
           return;
         }
+        if ( phaseNames[phaseNum] == "Pretest3" &&
+                !goodColorAnswers() ) {  // erreur pretest3
+          alert("Vous avez fait une erreur. On recommence.");
+          initPhase();
+          return;
+        }
         /*                                  FIN   À REMETTRE ÀPRES DEBBUG  */
         if ( line < itemTab.length - 1 ) {
           $("#boutTrial").css({"display":"block"});
@@ -289,7 +293,7 @@ $(document).ready(function () {
       $("#doPhase").css({"display":"none"});
       suite = "";
       phaseNum++;
-      if ( phaseNum < 5 ) { // < 5
+      if ( phaseNum < 6 ) { // < 5
         $(`#${phaseNames[phaseNum]}`).css({"display":"block"});
         suite = phaseNames[phaseNum];
       }
@@ -371,6 +375,13 @@ $(document).ready(function () {
     initPhase();
   });
 
+  // doPretest3
+  $("#boutDoPretest3").on("click", function (ev) {
+    $("#Pretest3").css({"display":"none"});
+    itemTab = objPretest3;
+    initPhase();
+  });
+
   // doTest3
   $("#boutDoTest3").on("click", function (ev) {
     $("#Test3").css({"display":"none"});
@@ -404,15 +415,20 @@ $(document).ready(function () {
 /////////////////////////////////////////
   // gestion conditions /////////////////
     // images
-  if ( condition == "classic") $("#face").css("display", "none");
-  else $("#face").attr("src", condition + ".png");
+  if ( condition == "EB" || condition == "ES" )
+              $("#face").attr("src", condition + ".png");
+  else $("#face").css("display", "none");
+
     // mots
-  objPretest1 = buildObjTab(classic_Pre1);
-  objPretest2 = buildObjTab(classic_Pre2);
+  objPretest1 = buildObjTab(prePhase1);
+  objPretest2 = buildObjTab(prePhase2);
+  objPretest3 = buildObjTab(prePhase3);
   objTest1 = buildObjTab(classic_Phase1);
   objTest2 = buildObjTab(classic_Phase2);
-  if ( condition == "classic" ) objTest3 = buildObjTab(classic_Phase3);
-  else objTest3 = buildObjTab(bienveil_malveil_Phase3);
+  if ( condition == "C" ) objTest3 = buildObjTab(classic_Phase3);
+  else if ( condition == "A" ) objTest3 = buildObjTab(alcool_Phase3);
+  else if ( condition == "E" ) objTest3 = buildObjTab(emotion_Phase3);
+  else alert ( 'Erreur ', 'Condition invalide: ', condition);
   ////////////////////////////////////////
 
   $("#participant").val("");
@@ -436,7 +452,7 @@ $(document).ready(function () {
 }); // ******************************************************  F I N   R E A D Y
 //  ****************************************************************************
 
-var phaseNames = ["Pretest1", "Test1", "Pretest2", "Test2", "Test3"];
+var phaseNames = ["Pretest1", "Test1", "Pretest2", "Test2", "Pretest3", "Test3"];
 
 var waitForKey = false;
 var itemTab;
@@ -466,12 +482,12 @@ var classic_Phase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-
 ["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
 */
 /**************************************************************************/
-var classic_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],
+var alcool_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],
 //];/*
 ["VIN-VERT","FAMILLE-BLEU","BIERE-BLEU","SOLEIL-JAUNE","VERRE-ROUGE"],["JOIE-JAUNE","WISKY-VERT","TERRASSE-ROUGE","ADDICTION-BLEU","AMOUR-JAUNE"],["COLERE-ROUGE","IVRE-BLEU","TENDRESSE-VERT","VACANCES-JAUNE","SODA-ROUGE"],["AMER-BLEU","VOYAGE-JAUNE","RHUM-VERT","CHERIR-ROUGE","SOLITUDE-BLEU"],["GIN-JAUNE","AGREABLE-BLEU","ANXIETE-ROUGE","ARGENT-JAUNE","DESSERT-VERT"],["LIQUIDE-ROUGE","SOIREE-VERT","VODKA-JAUNE","CIGARETTE-BLEU","FETE-BLEU"],["ABSENT-VERT","DESIR-JAUNE","DIGESTIF-BLEU","CAFE-ROUGE","NOURRITURE-VERT"],["AMITIE-ROUGE","LITRE-JAUNE","SOURIRE-VERT","ALCOOL-BLEU","MORT-ROUGE"],["COKTAIL-JAUNE","APERITIF-ROUGE","RIRE-BLEU","BOIRE-VERT","AFFECTION-JAUNE"]];
 //*/
 /**************************************************************************/
-var bienveil_malveil_Phase3 =
+var emotion_Phase3 =
 [["AFFLICTION-ROUGE","BONHEUR-JAUNE","DÉLAISSEMENT-ROUGE","EXULTATION-VERT","DÉSESPOIR-BLEU"],
 ];/*
 ["JOIE-VERT","ESSEULÉ-BLEU","LIESSE-BLEU","ISOLEMENT-JAUNE","CONTENTEMENT-ROUGE"],
@@ -486,9 +502,11 @@ var bienveil_malveil_Phase3 =
 */
 
 /**************************************************************************/
-var classic_Pre1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
+var prePhase1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR"]];
 /**************************************************************************/
-var classic_Pre2 = [["COKTAIL-ROUGE","APERITIF-BLEU","RIRE-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
+var prePhase2 = [["BLEU-JAUNE","VERT-BLEU","ROUGE-JAUNE","JAUNE-VERT","VERT-BLEU"]];
+/**************************************************************************/
+var prePhase3 = [["TABLE-ROUGE","RUSE-BLEU","OISEAU-JAUNE","BOIRE-VERT","AFFECTION-BLEU"]];
 /**************************************************************************/
 
 var couleurs = {};
