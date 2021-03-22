@@ -1,6 +1,6 @@
 //index.js
 
-var version = "0.40 DEBUG DEBUG DEBUG DEBUG DEBUG ";
+var version = "0.41 ";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -427,8 +427,8 @@ $(document).ready(function () {
   objTest2 = buildObjTab(classic_Phase2);
   if ( condition == "C" ) objTest3 = buildObjTab(classic_Phase3);
   else if ( condition == "A" ) objTest3 = buildObjTab(alcool_Phase3);
-  else if ( condition == "E" ) objTest3 = buildObjTab(emotion_Phase3);
-  else alert ( 'Erreur ', 'Condition invalide: ', condition);
+  else if ( condition == "E" || condition == "EB" || condition == "ES" ) objTest3 = buildObjTab(emotion_Phase3);
+  else alert ( 'Erreur ! Condition invalide: ' + condition );
   ////////////////////////////////////////
 
   $("#participant").val("");
@@ -470,17 +470,21 @@ var observateur = "";
 
 /**************************************************************************/
 var classic_Phase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],
-];/*
+//];/*
 ["VERT-NOIR","ROUGE-NOIR","BLEU-NOIR","VERT-NOIR","BLEU-NOIR"],
 ["ROUGE-NOIR","JAUNE-NOIR","BLEU-NOIR","VERT-NOIR","ROUGE-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR","ROUGE-NOIR"],["VERT-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","ROUGE-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR"],["VERT-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR","BLEU-NOIR"],["JAUNE-NOIR","JAUNE-NOIR","BLEU-NOIR","ROUGE-NOIR","VERT-NOIR"],["BLEU-NOIR","JAUNE-NOIR","VERT-NOIR","ROUGE-NOIR","BLEU-NOIR"],["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","JAUNE-NOIR"]];
-*/
+//*/
 /**************************************************************************/
 /**************************************************************************/
 var classic_Phase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-ROUGE"],
-];/*
+//];/*
 ["VERT-JAUNE","JAUNE-BLEU","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT"],
 ["VERT-ROUGE","ROUGE-BLEU","VERT-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["JAUNE-JAUNE","ROUGE-VERT","JAUNE-ROUGE","VERT-BLEU","BLEU-VERT"],["BLEU-JAUNE","ROUGE-BLEU","JAUNE-VERT","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","BLEU-ROUGE","VERT-JAUNE","JAUNE-ROUGE","VERT-BLEU"],["ROUGE-VERT","JAUNE-VERT","BLEU-ROUGE","ROUGE-BLEU","VERT-BLEU"],["BLEU-VERT","VERT-ROUGE","JAUNE-JAUNE","JAUNE-VERT","JAUNE-ROUGE"],["BLEU-ROUGE","ROUGE-BLEU","ROUGE-JAUNE","JAUNE-VERT","ROUGE-BLEU"],["VERT-ROUGE","BLEU-JAUNE","ROUGE-BLEU","VERT-JAUNE","BLEU-ROUGE"]];
-*/
+//*/
+/**************************************************************************/
+//                   P H A S E   3
+/**************************************************************************/
+var classic_Phase3 = [];
 /**************************************************************************/
 var alcool_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TRISTE-BLEU"],
 //];/*
@@ -489,7 +493,7 @@ var alcool_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TR
 /**************************************************************************/
 var emotion_Phase3 =
 [["AFFLICTION-ROUGE","BONHEUR-JAUNE","DÉLAISSEMENT-ROUGE","EXULTATION-VERT","DÉSESPOIR-BLEU"],
-];/*
+//];/*
 ["JOIE-VERT","ESSEULÉ-BLEU","LIESSE-BLEU","ISOLEMENT-JAUNE","CONTENTEMENT-ROUGE"],
 ["ABATTEMENT-JAUNE","DÉLICE-VERT","MÉLANCOLIE-ROUGE","PLAISIR-BLEU","MOROSITÉ-JAUNE"],
 ["RÉGAL-ROUGE","NOSTALGIE-BLEU","SATISFACTION-VERT","PESSIMISME-JAUNE","VOLUPTÉ-ROUGE"],
@@ -499,7 +503,7 @@ var emotion_Phase3 =
 ["DÉLECTATION-VERT","MAUSSADE-JAUNE","JOUISSANCE-BLEU","MORNE-ROUGE","POSITIF-VERT"],
 ["NAVRÉ-JAUNE","RÉJOUISSANCE-VERT","PEINE-BLEU","SENSUALITÉ-ROUGE","SENSUALITÉ-ROUGE"],
 ["MALHEUR-JAUNE","AMUSEMENT-ROUGE","SOLITUDE-BLEU","BONNE HUMEUR-VERT","TACITURNE-JAUNE"]];
-*/
+//*/
 
 /**************************************************************************/
 var prePhase1 =[["VERT-NOIR","ROUGE-NOIR","JAUNE-NOIR","VERT-NOIR","BLEU-NOIR"]];
