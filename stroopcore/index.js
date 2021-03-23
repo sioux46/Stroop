@@ -173,7 +173,8 @@ function displayTrial() {
     $(`#box${i}`).html("&nbsp;");
     $(`#word${i}`).text(itemTab[line][i].mot);
     let c = itemTab[line][i].couleur;
-    $(`#word${i}`).css("color", couleurs[c]);
+    if ( couleurs[c] ) $(`#word${i}`).css("color", couleurs[c]);
+    else $(`#word${i}`).css("color", c);
   }
   if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" && phaseNames[phaseNum] != "Pretest3" )
                             $("#page-num").text(`${line + 1}/${itemTab.length}`);
@@ -207,6 +208,7 @@ function readFile(ev) {
     previousDocContent = ev2.target.result;
     try {
       custom_Phase3 = JSON.parse(previousDocContent);
+      objTest3 = buildObjTab(custom_Phase3);
     } catch (ex) {
       alert("Erreur de lecture: vérifier la syntaxe du fichier");
     }
@@ -474,9 +476,10 @@ $(document).ready(function () {
   objTest1 = buildObjTab(classic_Phase1);
   objTest2 = buildObjTab(classic_Phase2);
   if ( condition == "C" ) objTest3 = buildObjTab(classic_Phase3);
-  else if ( condition == "X" ) objTest3 = buildObjTab(custom_Phase3);
+//  else if ( condition == "X" ) objTest3 = buildObjTab(custom_Phase3);
   else if ( condition == "A" ) objTest3 = buildObjTab(alcool_Phase3);
   else if ( condition == "E" || condition == "EB" || condition == "ES" ) objTest3 = buildObjTab(emotion_Phase3);
+  else if ( condition == "X"); // voir readFile
   else alert ( 'Erreur ! Condition invalide: ' + condition );
   ////////////////////////////////////////
 
