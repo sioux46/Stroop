@@ -1,10 +1,11 @@
 //index.js
 
-var version = "0.41 ";
+var version = "0.42 ";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
 
+/* non utilisé
 //////// construit un tableau de nbIndexes de 0 à nbIndexes-1 index en ordre aléatoire
 //////// appel: buildSignListIndex(8) ---> [2, 3, 6, 1, 5, 4, 7, 0]
 function numAlea (nb) {
@@ -32,6 +33,7 @@ function buildSignListIndex ( nbIndexes ) {
   return list;
 }
 //////////
+*/
 
 //    sauver tableau double entrée dans fichier csv
 function toCsvFile(twoWayTable) {
@@ -195,13 +197,51 @@ function initPhase() {
   waitForKey = true;
 }
 
-// ev.keyCode === 13
+// lecture fichier .txt items phase 3
+function readFile(ev) {
+  var file = ev.target.files[0];
+  if ( !file || !( file.name.match(/.txt$/)) ) return;
+  var reader = new FileReader();
+  reader.onload = function(ev2) {
+    previousDocContent = ev2.target.result;
+    try {
+      custom_Phase3 = JSON.parse(previousDocContent);
+    } catch (ex) {
+      alert("Erreur de lecture: vérifier la syntaxe du fichier");
+    }
+    $("#openFileInput").val(""); // erase previous value
+  };
+  reader.readAsText(file);
+}
+
 ////////////////////////////////////////////////  Fin F U N C T I O N S
+///////////////////////////////////////////////////////////////////////
 
 //*********************************************************************
 //*********************************************************************
 // ********************************************************** R E A D Y
 $(document).ready(function () {
+
+  // readFile input dialog
+  $("#openFileInput").on("change", readFile);
+
+  // click on #boutInputPhase3
+  $("#boutInputPhase3").on("click", function () {
+    $("#openFileInput").attr("accept", ".txt");
+    $("#openFileInput").trigger("click");
+  });
+
+  // click on #boutInputImg
+  $("#boutInputImg").on("click", function () {
+    $("#openFileInput").attr("accept", ".png, .jpg");
+    $("#openFileInput").trigger("click");
+  });
+
+  // show phase3 and img files load button
+  if ( condition == "X" ) {
+    $("#boutInputPhase3").css("display", "block");
+    // $("#boutInputImg").css("display", "block"); // en attente
+  }
 
 ///////////////////////////////////////////////////////////////////////
                                                     // saisie clavier
@@ -331,6 +371,11 @@ $(document).ready(function () {
     }
     */
 
+    if ( condition == "X" && custom_Phase3.length == 0 ) {
+      alert("Choisir un fichier pour la phase 3");
+      return;
+    }
+
     participant = $.trim(participant);
     if (  !participant ||
           participant.length > 15 ||
@@ -426,6 +471,7 @@ $(document).ready(function () {
   objTest1 = buildObjTab(classic_Phase1);
   objTest2 = buildObjTab(classic_Phase2);
   if ( condition == "C" ) objTest3 = buildObjTab(classic_Phase3);
+  else if ( condition == "X" ) objTest3 = buildObjTab(custom_Phase3);
   else if ( condition == "A" ) objTest3 = buildObjTab(alcool_Phase3);
   else if ( condition == "E" || condition == "EB" || condition == "ES" ) objTest3 = buildObjTab(emotion_Phase3);
   else alert ( 'Erreur ! Condition invalide: ' + condition );
@@ -483,6 +529,9 @@ var classic_Phase2 = [["BLEU-VERT","JAUNE-BLEU","BLEU-JAUNE","ROUGE-VERT","BLEU-
 //*/
 /**************************************************************************/
 //                   P H A S E   3
+
+/**************************************************************************/
+var custom_Phase3 = [];
 /**************************************************************************/
 var classic_Phase3 = [];
 /**************************************************************************/

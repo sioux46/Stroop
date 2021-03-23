@@ -28,6 +28,9 @@ $condition = $_GET['condition'];
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <body class="">
+	<!-- hidden input for file dialog -->
+	<input type="file" id="openFileInput" style="display:none;">
+	<!-- -->
 	<div id="stroop" class="text-center">
 <!-- ************************************* -->
 		<div id="accueil" class="section form-signin">
@@ -45,11 +48,8 @@ $condition = $_GET['condition'];
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
 			<br>
-		  <!--<div class="checkbox mb-3">
-		    <label>
-		      <input type="checkbox" value="remember-me"> Remember me
-		    </label>
-		  </div>-->
+			<button id="boutInputPhase3" class="btn btn-lg btn-secondary btn-block"  style="display:none";>Choisir le fichier pour la phase 3</button>
+			<button id="boutInputImg" class="btn btn-lg btn-secondary btn-block"  style="display:none";>Choisir l'image (optionnel)'</button>
 		  <button id="boutPretest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
 			<br><br><br><br><br>
 			<h6><div id="version" style="color:#bbb"></div></h6>
