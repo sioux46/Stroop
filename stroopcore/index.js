@@ -87,6 +87,7 @@ function verifNewParticipant () {
           $("#accueil").css({"display":"none"});
           $("#Pretest1").css({"display":"block"});
           suite = "Pretest1";
+          flagAccuiel = false;
           return true;
         }
         else {
@@ -258,7 +259,6 @@ $(document).ready(function () {
         $("#boutPhase").trigger("click");
       }
       else if ( suite == "boutPretest1" ) {
-        flagAccuiel = false;
         $(`#${suite}`).trigger("click");
       }
       else if ( suite ) {
