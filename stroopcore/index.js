@@ -247,6 +247,8 @@ $(document).ready(function () {
                                                     // saisie clavier
   $(document).on("keypress", function(ev) {
 
+    if ( flagAccuiel ) return;
+
     if (ev.keyCode === 13 || ev.keyCode === 32 ) {
 
       if ( col == 4 && suite == "boutTrial" ) {
@@ -256,6 +258,7 @@ $(document).ready(function () {
         $("#boutPhase").trigger("click");
       }
       else if ( suite == "boutPretest1" ) {
+        flagAccuiel = false;
         $(`#${suite}`).trigger("click");
       }
       else if ( suite ) {
@@ -513,6 +516,8 @@ var proto = [];
 var participant = "";
 var lieu = "";
 var observateur = "";
+
+var flagAccuiel = true;
 
 /**************************************************************************/
 var classic_Phase1 = [["VERT-NOIR","JAUNE-NOIR","ROUGE-NOIR","BLEU-NOIR","JAUNE-NOIR"],
