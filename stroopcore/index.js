@@ -176,8 +176,10 @@ function displayTrial() {
     if ( couleurs[c] ) $(`#word${i}`).css("color", couleurs[c]);
     else $(`#word${i}`).css("color", c);
   }
-  if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" && phaseNames[phaseNum] != "Pretest3" )
-                            $("#page-num").text(`${line + 1}/${itemTab.length}`);
+  if ( phaseNames[phaseNum] != "Pretest1" && phaseNames[phaseNum] != "Pretest2" && phaseNames[phaseNum] != "Pretest3" ) {
+    $("#page-num").text(`${line + 1}/${itemTab.length}`);
+  }
+  else $("#page-num").text("");
 
   // $("#mobile-keyboard").focus();
   trialTime = now();
