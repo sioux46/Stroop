@@ -201,25 +201,25 @@ function initPhase() {
   waitForKey = true;
 }
 
-// lecture fichier .txt items phase 3
+// lecture fichier .txt pour phase 3
 function readFile(ev) {
   var file = ev.target.files[0];
-  if ( !file || !( file.name.match(/.txt$/)) ) return;
+  if ( !file || !( file.name.match(/\.txt$/)) ) return;
   var reader = new FileReader();
   reader.onload = function(ev2) {
-    previousDocContent = ev2.target.result;
     try {
-      custom_Phase3 = JSON.parse(previousDocContent);
+      custom_Phase3 = JSON.parse(ev2.target.result);
       objTest3 = buildObjTab(custom_Phase3);
     } catch (ex) {
       alert("Erreur de lecture: vérifier la syntaxe du fichier");
     }
-    $("#openFileInput").val(""); // erase previous value
+    $("#openTxtFileInput").val(""); // erase previous value
   };
   reader.readAsText(file);
 }
 
 ////////////////////////////////////////////////  Fin F U N C T I O N S
+///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
 //*********************************************************************
@@ -228,24 +228,37 @@ function readFile(ev) {
 $(document).ready(function () {
 
   // readFile input dialog
-  $("#openFileInput").on("change", readFile);
+  $("#openTxtFileInput").on("change", readFile);
+
+  // lecture fichier .png ou .jpg pour phase 3
+  $("#openImgFileInput").on("change", function (e) {
+    let file = e.target.files[0];
+    if ( !file ) return;
+    if ( !file.name.match(/\.png$/) && (!file.name.match(/\.jpg$/)) ) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $("#face").attr("src", e.target.result);
+      $("#openImgFileInput").val(""); // erase previous value
+    };
+    reader.readAsDataURL(file);     // ou readAsText(file);
+  });
 
   // click on #boutInputPhase3
   $("#boutInputPhase3").on("click", function () {
-    $("#openFileInput").attr("accept", ".txt");
-    $("#openFileInput").trigger("click");
+    $("#openTxtFileInput").attr("accept", ".txt");
+    $("#openTxtFileInput").trigger("click");
   });
 
   // click on #boutInputImg
   $("#boutInputImg").on("click", function () {
-    $("#openFileInput").attr("accept", ".png, .jpg");
-    $("#openFileInput").trigger("click");
+    $("#openImgFileInput").attr("accept", ".png, .jpg");
+    $("#openImgFileInput").trigger("click");
   });
 
   // show phase3 and img files load button
   if ( condition == "X" ) {
     $("#boutInputPhase3").css("display", "block");
-    // $("#boutInputImg").css("display", "block"); // en attente
+    $("#boutInputImg").css("display", "block"); // en attente
   }
 
 ///////////////////////////////////////////////////////////////////////
@@ -284,7 +297,7 @@ $(document).ready(function () {
       $(`#box${col}`).css("border","2px solid white");
       if ( col < 4 ) $(`#box${col+1}`).css("border","2px solid black");
       if ( col == 4 ) {
-        /*                                        À REMETTRE ÀPRES DEBBUG */
+
         if ( phaseNames[phaseNum] == "Pretest1" &&
                 !goodCharAnswers() ) {  // erreur pretest1
           alert("Vous avez fait une erreur. On recommence.");
@@ -303,7 +316,7 @@ $(document).ready(function () {
           initPhase();
           return;
         }
-        /*                                  FIN   À REMETTRE ÀPRES DEBBUG  */
+
         if ( line < itemTab.length - 1 ) {
           $("#boutTrial").css({"display":"block"});
           suite = "boutTrial";
@@ -469,7 +482,6 @@ $(document).ready(function () {
     // images
   if ( condition == "EB" || condition == "ES" )
               $("#face").attr("src", condition + ".png");
-  else $("#face").css("display", "none");
 
     // mots
   objPretest1 = buildObjTab(prePhase1);

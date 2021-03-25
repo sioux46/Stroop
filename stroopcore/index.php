@@ -28,30 +28,33 @@ $condition = $_GET['condition'];
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <body class="">
-	<!-- hidden input for file dialog -->
-	<input type="file" id="openFileInput" style="display:none;">
+	<!-- hidden input for files dialog -->
+	<input type="file" id="openTxtFileInput" style="display:none;">
+	<input type="file" id="openImgFileInput" style="display:none;">
 	<!-- -->
 	<div id="stroop" class="text-center">
 <!-- ************************************* -->
 		<div id="accueil" class="section form-signin">
 			<div id="dataAll"></div>
 			<div id="dataOne"></div>
-		  <div class="h3 mb-3 font-weight-large">Bienvenue dans STROOP!</div>
+		  <div class="h2 font-weight-large">Bienvenue dans STROOP !</div>
 			<br>
 			<br>
 			<label for="observateur" class="sr-only">Observateur</label>
 		  <input id="observateur" type="text" class="form-control" placeholder="Nom de l'observateur" required="" autofocus="">
 		  <label for="participant" class="sr-only">Participant</label>
-		  <input id="participant" type="text" title="Caractères acceptés: alphanumérique, tiret milieu et tiret bas" class="form-control" placeholder="Identifiant de la passation (15 caractères max.)" required="" autofocus="">
+		  <input id="participant" type="text" title="Caractères acceptés: alphanumérique, tiret milieu et tiret bas" class="form-control" placeholder="Identifiant de la passation (15 caractères max.)">
 			<label for="lieu" class="sr-only">Lieu</label>
-		  <input id="lieu" type="text" class="form-control" placeholder="Lieu de la passation" required="" autofocus="">
+		  <input id="lieu" type="text" class="form-control" placeholder="Lieu de la passation">
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
-			<br>
-			<button id="boutInputPhase3" class="btn btn-lg btn-secondary btn-block"  style="display:none";>Choisir le fichier pour la phase 3</button>
-			<button id="boutInputImg" class="btn btn-lg btn-secondary btn-block"  style="display:none";>Choisir l'image (optionnel)'</button>
+			<br><br>
+			<div class="h4 font-weight-large">Items de la phase 3</div>
+			<button id="boutInputPhase3" class="btn btn-lg btn-success btn-block"  style="display:none";>Choisir la liste des mots</button>
+			<button id="boutInputImg" class="btn btn-lg btn-success btn-block"  style="display:none";>Choisir une image ( optionnel )</button>
+			<br><br>
 		  <button id="boutPretest1" class="btn btn-lg btn-primary btn-block">Cliquez ici pour commencer</button>
-			<br><br><br><br><br>
+			<br><br><br><br>
 			<h6><div id="version" style="color:#bbb"></div></h6>
 		</div> <!-- fin accueil -->
 <!-- ************************************* pretest1 -->
