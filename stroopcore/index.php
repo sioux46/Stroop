@@ -29,8 +29,8 @@ $condition = $_GET['condition'];
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 <body class="">
 	<!-- hidden input for files dialog -->
-	<input type="file" id="openTxtFileInput" style="display:none;">
-	<input type="file" id="openImgFileInput" style="display:none;">
+	<input id="openTxtFileInput" type="file" accept=".txt" style="display:none;">
+	<input id="openImgFileInput" type="file" accept=".png, .jpg" style="display:none;">
 	<!-- -->
 	<div id="stroop" class="text-center">
 <!-- ************************************* -->

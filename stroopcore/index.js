@@ -233,8 +233,8 @@ $(document).ready(function () {
   // lecture fichier .png ou .jpg pour phase 3
   $("#openImgFileInput").on("change", function (e) {
     let file = e.target.files[0];
-    if ( !file ) return;
-    if ( !file.name.match(/\.png$/) && (!file.name.match(/\.jpg$/)) ) return;
+    if (  !file || !file.type.match(/image.*/) )  return;
+    //if ( !file.name.match(/\.png$/) && (!file.name.match(/\.jpg$/)) ) return;
     var reader = new FileReader();
     reader.onload = function(e) {
       $("#face").attr("src", e.target.result);
@@ -258,7 +258,7 @@ $(document).ready(function () {
   // show phase3 and img files load button
   if ( condition == "X" ) {
     $("#boutInputPhase3").css("display", "block");
-    $("#boutInputImg").css("display", "block"); // en attente
+    $("#boutInputImg").css("display", "block");
   }
 
 ///////////////////////////////////////////////////////////////////////
@@ -417,6 +417,10 @@ $(document).ready(function () {
     $("#Pretest1").css({"display":"none"});
     itemTab = objPretest1;
     initPhase();
+    if ( phaseNum == 0 ) {
+      if ( $("#face").height() > 700 ) $("#face").height(700);
+      if ( $("#face").width() > 1000 ) $("#face").width(1000);
+    }
   });
 
   // doTest1
