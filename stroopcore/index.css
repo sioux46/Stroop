@@ -69,7 +69,7 @@
   min-width: 1200px;
   padding: 15px;
   margin: auto;
-  font-family: "Courier New", Courier;
+  font-family: "Courier New", monospace;
 }
 
 .fiveWords {

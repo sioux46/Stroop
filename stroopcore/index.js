@@ -1,6 +1,6 @@
 //index.js
 
-var version = "0.42 ";
+var version = "0.43 ";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -234,7 +234,6 @@ $(document).ready(function () {
   $("#openImgFileInput").on("change", function (e) {
     let file = e.target.files[0];
     if (  !file || !file.type.match(/image.*/) )  return;
-    //if ( !file.name.match(/\.png$/) && (!file.name.match(/\.jpg$/)) ) return;
     var reader = new FileReader();
     reader.onload = function(e) {
       $("#face").attr("src", e.target.result);
@@ -567,17 +566,17 @@ var alcool_Phase3 = [["VIE-ROUGE","NOIR-JAUNE","BOUTEILLE-ROUGE","ROSE-VERT","TR
 //*/
 /**************************************************************************/
 var emotion_Phase3 =
-[["AFFLICTION-ROUGE","BONHEUR-JAUNE","DÉLAISSEMENT-ROUGE","EXULTATION-VERT","DÉSESPOIR-BLEU"],
+[["CHAGRIN-ROUGE","BONHEUR-JAUNE","DESESPOIR-ROUGE","REUSSIR-VERT","ABRUTI-BLEU"],
 //];/*
-["JOIE-VERT","ESSEULÉ-BLEU","LIESSE-BLEU","ISOLEMENT-JAUNE","CONTENTEMENT-ROUGE"],
-["ABATTEMENT-JAUNE","DÉLICE-VERT","MÉLANCOLIE-ROUGE","PLAISIR-BLEU","MOROSITÉ-JAUNE"],
-["RÉGAL-ROUGE","NOSTALGIE-BLEU","SATISFACTION-VERT","PESSIMISME-JAUNE","VOLUPTÉ-ROUGE"],
-["SANS ESPOIR-BLEU","BADINAGE-JAUNE","SPLEEN-VERT","ÉGAYER-ROUGE","TRISTESSE-BLEU"],
-["ALLÉGRESSE-JAUNE","CHAGRIN-BLEU","EUPHORIE-ROUGE","ABANDON-JAUNE","HEUREUX-VERT"],
-["ENNUI-ROUGE","JUBILATION-VERT","INCONSOLABLE-JAUNE","BÉNÉFIQUE-BLEU","LUGUBRE-BLEU"],
-["DÉLECTATION-VERT","MAUSSADE-JAUNE","JOUISSANCE-BLEU","MORNE-ROUGE","POSITIF-VERT"],
-["NAVRÉ-JAUNE","RÉJOUISSANCE-VERT","PEINE-BLEU","SENSUALITÉ-ROUGE","SENSUALITÉ-ROUGE"],
-["MALHEUR-JAUNE","AMUSEMENT-ROUGE","SOLITUDE-BLEU","BONNE HUMEUR-VERT","TACITURNE-JAUNE"]];
+["JOIE-VERT","SANGLOT-BLEU","PREMIER-BLEU","MAUSSADE-JAUNE","CONTENT-ROUGE"],
+["FACHER-JAUNE","GAGNER-VERT","PLEURER-ROUGE","PLAISIR-BLEU","RATER-JAUNE"],
+["VAINCRE-ROUGE","ECHOUER-BLEU","SATISFAIT-VERT","PESSIMISTE-JAUNE","ADMIRER-ROUGE"],
+["IDIOT-BLEU","VOLONTAIRE-JAUNE","TRISTE-VERT","BRAVO-ROUGE","MALADE-BLEU"],
+["FORT-JAUNE","PITEUX-BLEU","APPLAUDIR-ROUGE","MALADE-JAUNE","HEUREUX-VERT"],
+["ENNUI-ROUGE","COURAGE-VERT","SOLITUDE-JAUNE","BIEN-BLEU","LUGUBRE-BLEU"],
+["FIER-VERT","MAUVAIS-JAUNE","GENIAL-BLEU","FAIBLE-ROUGE","HONNEUR-VERT"],
+["PEINE-ROUGE","TRIOMPHE-JAUNE","ECHEC-VERT","BON-BLEU","MALHEUR-ROUGE"],
+["HOURRA-JAUNE","DERNIER-ROUGE","VICTOIRE-BLEU","PERDRE-VERT","GLOIRE-JAUNE"]];
 //*/
 
 /**************************************************************************/
