@@ -37,7 +37,7 @@ $condition = $_GET['condition'];
 		<div id="accueil" class="section form-signin">
 			<div id="dataAll"></div>
 			<div id="dataOne"></div>
-		  <div class="h2 font-weight-large">Bienvenue dans STROOP !</div>
+		  <div id="stroop_title" class=" h2 font-weight-large">Bienvenue dans STROOP !</div>
 			<br>
 			<br>
 			<label for="observateur" class="sr-only">Observateur</label>

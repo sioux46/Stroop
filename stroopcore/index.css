@@ -152,3 +152,9 @@
 #face {
   /* width: 300px; */
 }
+
+#stroop_title {
+  left: -20px;
+  position: relative;
+  font-weight: 900;
+}
