@@ -7,11 +7,13 @@ $base=connect();
 header("content-type:text/plain; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
+$condition = $_GET['condition'];
 $participant = $_GET['participant'];
 $literal = $_GET['literal'];
 
 if ( $participant ) {
-	$fileName = "stroop_$participant-";
+	$fileName = "stroop_$condition";
+	$fileName = $fileName . "_$participant-";
 	if ( $literal )
 		$requete = "SELECT * FROM rowdata WHERE `participant` = '$participant' ORDER BY `id`";
 	else

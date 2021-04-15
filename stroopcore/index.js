@@ -1,6 +1,6 @@
 //index.js
 
-var version = "0.45 ";
+var version = "0.46 ";
 ////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// F U N C T I O N S
 ////////////////////////////////////////////////////////////////////
@@ -257,6 +257,7 @@ $(document).ready(function () {
   // show phase3 and img files load button
   if ( condition == "X" ) {
     $("#boutInputPhase3").css("display", "block");
+    $("#labelInputPhase3").css("display", "block");
     $("#boutInputImg").css("display", "block");
   }
 
@@ -419,6 +420,7 @@ $(document).ready(function () {
     if ( phaseNum == 0 ) {
       if ( $("#face").height() > 700 ) $("#face").height(700);
       if ( $("#face").width() > 1000 ) $("#face").width(1000);
+      $("#face").css({"display": "block", "margin-left": "55px"});
     }
   });
 
@@ -460,7 +462,7 @@ $(document).ready(function () {
   ///////////////////////////////////////////////
   //
   $("#downloadProto").on("click", function (ev) { // fin passation
-    location = `data.php?participant=${proto[0].participant}&literal=yes`;
+    location = `data.php?participant=${proto[0].participant}&condition=${condition}&literal=yes`;
   });
   ///////////////////////////////////////////////////
   //
@@ -475,7 +477,7 @@ $(document).ready(function () {
     id = String(prompt("Identifiant:"));
     if ( id ) {
 //      location = `https://sioux.univ-paris8.fr/stroop/stroopcore/data.php?participant=${id}`;
-        location = `data.php?participant=${id}`;
+        location = `data.php?participant=${id}&condition=${condition}`;
     }
   });
   ///////////////////////////////////////////////////

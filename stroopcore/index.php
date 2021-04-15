@@ -49,7 +49,7 @@ $condition = $_GET['condition'];
 		  <!--<label for="inputPassword" class="sr-only">Password</label>
 		  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">-->
 			<br><br>
-			<div class="h4 font-weight-large">Items de la phase 3</div>
+			<div id="labelInputPhase3" class="h4 font-weight-large"   style="display:none";>Items de la phase 3</div>
 			<button id="boutInputPhase3" class="btn btn-lg btn-success btn-block"  style="display:none";>Choisir la liste des mots</button>
 			<button id="boutInputImg" class="btn btn-lg btn-success btn-block"  style="display:none";>Choisir une image ( optionnel )</button>
 			<br><br>
